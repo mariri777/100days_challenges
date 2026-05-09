@@ -614,9 +614,6 @@
   }
 
   addBtn.addEventListener('click', addTask);
-  inputEl.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') addTask();
-  });
   clearBtn.addEventListener('click', clearCompleted);
 
   render();
