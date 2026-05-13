@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>你好！中国語アウトプット練習</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #fff5f7;
+      --bg-soft: #ffe7ee;
+      --pink-light: #ffd0dd;
+      --pink: #ff8fa9;
+      --pink-deep: #e76b8a;
+      --pink-darker: #c84d6e;
+      --cream: #fffaf9;
+      --white: #ffffff;
+      --ink: #4a2f3a;
+      --ink-soft: #8a6a76;
+      --ink-mute: #b69aa3;
+      --line: #f3d9d3;
+      --green: #6db99e;
+      --green-soft: #d8f0e6;
+      --red: #e76b6b;
+      --red-soft: #fde2e2;
+      --yellow: #f5c46b;
+      --yellow-soft: #fbecc7;
+      --shadow: 0 14px 30px -18px rgba(231, 107, 138, 0.45);
+      --shadow-lg: 0 26px 60px -28px rgba(231, 107, 138, 0.55);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Plus Jakarta Sans", -apple-system, "Hiragino Kaku Gothic ProN",
+        "Yu Gothic UI", "Noto Sans SC", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      background-image:
+        radial-gradient(circle at 12% 8%, #ffd9e1 0%, transparent 40%),
+        radial-gradient(circle at 88% 6%, #ffe1ea 0%, transparent 38%),
+        radial-gradient(circle at 50% 100%, #ffe4ec 0%, transparent 50%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .zh { font-family: "Noto Sans SC", "Plus Jakarta Sans", sans-serif; }
+
+    /* Decorative floating petals */
+    .petal {
+      position: fixed;
+      pointer-events: none;
+      opacity: 0.55;
+      animation: float 14s ease-in-out infinite;
+      z-index: 0;
+    }
+    .petal:nth-child(1) { top: 8%; left: 6%; font-size: 22px; animation-delay: 0s; }
+    .petal:nth-child(2) { top: 22%; right: 8%; font-size: 18px; animation-delay: -3s; }
+    .petal:nth-child(3) { bottom: 18%; left: 10%; font-size: 24px; animation-delay: -6s; }
+    .petal:nth-child(4) { bottom: 28%; right: 6%; font-size: 16px; animation-delay: -9s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-20px) rotate(15deg); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
+    }
+
+    /* ---- Header ---- */
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .header-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--pink-deep);
+      background: var(--white);
+      padding: 7px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+    .header-eyebrow::before { content: "✿"; font-size: 13px; }
+    .header-eyebrow::after { content: "✿"; font-size: 13px; }
+
+    .header h1 {
+      font-family: "Fraunces", serif;
+      font-weight: 600;
+      font-size: clamp(34px, 6vw, 52px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .header h1 .accent {
+      color: var(--pink-deep);
+      font-style: italic;
+      font-weight: 500;
+    }
+    .header h1 .zh-title {
+      display: block;
+      font-family: "Noto Sans SC", serif;
+      font-weight: 500;
+      font-size: 0.6em;
+      color: var(--pink);
+      margin-top: 6px;
+      letter-spacing: 0.04em;
+    }
+    .header p {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+
+    /* ---- Stats bar ---- */
+    .stats {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      padding: 10px 16px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+    .stat-pill .icon { font-size: 15px; }
+    .stat-pill .value {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 600;
+      color: var(--pink-darker);
+      font-size: 14px;
+    }
+    .stat-pill .goal-met { color: var(--green); }
+
+    /* ---- Settings ---- */
+    .settings {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .level-btn {
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border: 1.5px solid var(--line);
+      background: var(--white);
+      color: var(--ink-soft);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .level-btn:hover {
+      border-color: var(--pink);
+      color: var(--pink-deep);
+    }
+    .level-btn.active {
+      background: var(--pink);
+      color: var(--white);
+      border-color: var(--pink);
+    }
+
+    /* ---- Main card ---- */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 36px 32px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, #ffd6dd 0%, transparent 70%);
+      border-radius: 50%;
+      opacity: 0.55;
+      pointer-events: none;
+    }
+    .card::after {
+      content: "";
+      position: absolute;
+      bottom: -50px;
+      left: -50px;
+      width: 130px;
+      height: 130px;
+      background: radial-gradient(circle, #ffe4ec 0%, transparent 70%);
+      border-radius: 50%;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .hsk-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+    .hsk-badge::before { content: "🌸"; font-size: 12px; }
+    .fav-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 22px;
+      transition: transform 0.2s ease;
+      filter: grayscale(0.8);
+      opacity: 0.5;
+    }
+    .fav-btn:hover { transform: scale(1.15); }
+    .fav-btn.active {
+      filter: none;
+      opacity: 1;
+      animation: pop 0.3s ease;
+    }
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    .question-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: 10px;
+    }
+    .question-ja {
+      font-family: "Fraunces", "Hiragino Kaku Gothic ProN", serif;
+      font-weight: 500;
+      font-size: clamp(22px, 4vw, 28px);
+      line-height: 1.5;
+      color: var(--ink);
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .input-wrap {
+      position: relative;
+      z-index: 1;
+    }
+    .answer-input {
+      width: 100%;
+      font-family: "Noto Sans SC", sans-serif;
+      font-size: 20px;
+      padding: 18px 20px;
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      background: var(--cream);
+      color: var(--ink);
+      resize: vertical;
+      min-height: 80px;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .answer-input::placeholder {
+      color: var(--ink-mute);
+      font-family: inherit;
+      font-size: 15px;
+    }
+    .answer-input:focus {
+      outline: none;
+      border-color: var(--pink);
+      background: var(--white);
+    }
+    .answer-input:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    .btn {
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 22px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+      color: var(--white);
+      box-shadow: 0 8px 20px -8px rgba(231, 107, 138, 0.6);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -8px rgba(231, 107, 138, 0.7);
+    }
+    .btn-primary:disabled {
+      background: var(--ink-mute);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    .btn-ghost {
+      background: var(--white);
+      color: var(--ink-soft);
+      border: 1.5px solid var(--line);
+    }
+    .btn-ghost:hover {
+      border-color: var(--pink);
+      color: var(--pink-deep);
+    }
+    .btn-next {
+      background: linear-gradient(135deg, var(--pink-deep), var(--pink-darker));
+      color: var(--white);
+      box-shadow: 0 8px 20px -8px rgba(200, 77, 110, 0.6);
+    }
+    .btn-next:hover {
+      transform: translateY(-2px);
+    }
+
+    /* ---- Hint ---- */
+    .hint {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: var(--yellow-soft);
+      border-radius: 14px;
+      font-size: 14px;
+      color: #8a6a26;
+      position: relative;
+      z-index: 1;
+    }
+    .hint::before {
+      content: "💡 ";
+    }
+
+    /* ---- Result ---- */
+    .result {
+      margin-top: 28px;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.4s ease;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .verdict {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .verdict-correct {
+      background: var(--green-soft);
+      color: #2f7c5e;
+    }
+    .verdict-partial {
+      background: var(--yellow-soft);
+      color: #8a6a26;
+    }
+    .verdict-wrong {
+      background: var(--red-soft);
+      color: #a23838;
+    }
+    .verdict .emoji { font-size: 22px; }
+
+    .answer-block {
+      background: var(--bg-soft);
+      border-radius: 18px;
+      padding: 20px 22px;
+      margin-bottom: 18px;
+    }
+    .answer-block .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--pink-deep);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .answer-zh {
+      font-family: "Noto Sans SC", sans-serif;
+      font-size: 26px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .answer-pinyin {
+      font-style: italic;
+      color: var(--pink-darker);
+      font-size: 15px;
+      margin-top: 6px;
+      font-family: "Plus Jakarta Sans", serif;
+    }
+    .speak-btn {
+      background: var(--white);
+      border: 1.5px solid var(--line);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .speak-btn:hover {
+      background: var(--pink);
+      color: var(--white);
+      border-color: var(--pink);
+      transform: scale(1.08);
+    }
+    .your-answer {
+      font-family: "Noto Sans SC", sans-serif;
+      font-size: 18px;
+      color: var(--ink-soft);
+      margin-top: 4px;
+    }
+
+    /* ---- Words ---- */
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--pink-deep);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .section-title::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: var(--pink);
+      border-radius: 50%;
+    }
+
+    .words-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .word-item {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .word-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px -8px rgba(231, 107, 138, 0.3);
+    }
+    .word-zh {
+      font-family: "Noto Sans SC", sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .word-pinyin {
+      font-style: italic;
+      color: var(--pink-darker);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+    .word-ja {
+      font-size: 13px;
+      color: var(--ink-soft);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    /* ---- Grammar ---- */
+    .grammar-block {
+      background: linear-gradient(135deg, #fff5f7 0%, #fff 100%);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--pink);
+      border-radius: 14px;
+      padding: 16px 18px;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--ink);
+    }
+    .grammar-block strong {
+      color: var(--pink-darker);
+      font-weight: 700;
+    }
+    .grammar-block code {
+      font-family: "Noto Sans SC", "JetBrains Mono", monospace;
+      background: var(--bg-soft);
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: var(--pink-darker);
+      font-size: 0.95em;
+    }
+
+    .next-wrap {
+      margin-top: 22px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* ---- Footer ---- */
+    .footer {
+      margin-top: 56px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--ink-mute);
+    }
+    .footer .heart { color: var(--pink-deep); }
+
+    /* Char diff highlight */
+    .diff-correct { color: var(--green); font-weight: 600; }
+    .diff-wrong { color: var(--red); text-decoration: line-through; }
+    .diff-missing { color: var(--pink-darker); font-weight: 600; background: var(--bg-soft); padding: 0 4px; border-radius: 3px; }
+
+    /* ---- Mobile ---- */
+    @media (max-width: 640px) {
+      .container { padding: 28px 16px 64px; }
+      .card { padding: 26px 22px; border-radius: 22px; }
+      .question-ja { font-size: 20px; }
+      .answer-zh { font-size: 22px; }
+      .answer-input { font-size: 18px; }
+      .stat-pill { padding: 8px 12px; font-size: 12px; }
+      .btn { padding: 10px 18px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <span class="petal">🌸</span>
+  <span class="petal">🌷</span>
+  <span class="petal">💗</span>
+  <span class="petal">🌸</span>
+
+  <div class="container">
+    <header class="header">
+      <span class="header-eyebrow">Chinese Output Trainer</span>
+      <h1>
+        Daily <span class="accent">中国語</span> Talk
+        <span class="zh-title">你好！每天一句中文输出</span>
+      </h1>
+      <p>HSK 1〜4級の日本語文を中国語にしてみよう。毎日少しずつ、続けることが一番。</p>
+
+      <div class="stats">
+        <span class="stat-pill"><span class="icon">🔥</span>連続 <span class="value" id="streak">0</span> 日</span>
+        <span class="stat-pill"><span class="icon">🌸</span>今日 <span class="value" id="today-count">0</span> / 10</span>
+        <span class="stat-pill"><span class="icon">📚</span>累計 <span class="value" id="total">0</span> 文</span>
+      </div>
+    </header>
+
+    <div class="settings">
+      <button class="level-btn active" data-level="all">ALL</button>
+      <button class="level-btn" data-level="1">HSK 1</button>
+      <button class="level-btn" data-level="2">HSK 2</button>
+      <button class="level-btn" data-level="3">HSK 3</button>
+      <button class="level-btn" data-level="4">HSK 4</button>
+      <button class="level-btn" data-level="fav">⭐ お気に入り</button>
+    </div>
+
+    <main class="card">
+      <div class="card-head">
+        <span class="hsk-badge" id="hsk-badge">HSK 1</span>
+        <button class="fav-btn" id="fav-btn" title="お気に入り">☆</button>
+      </div>
+
+      <div class="question-label">Translate to Chinese</div>
+      <div class="question-ja" id="question-ja">読み込み中…</div>
+
+      <div class="input-wrap">
+        <textarea
+          class="answer-input zh"
+          id="answer-input"
+          placeholder="ここに中国語で入力（例：我是学生）"
+          autocomplete="off"
+          spellcheck="false"
+        ></textarea>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="check-btn">✿ 答え合わせ</button>
+        <button class="btn btn-ghost" id="hint-btn">💡 ヒント</button>
+        <button class="btn btn-ghost" id="skip-btn">⤴ スキップ</button>
+      </div>
+
+      <div id="hint-area"></div>
+      <div id="result-area"></div>
+    </main>
+
+    <footer class="footer">
+      <p>加油！<span class="heart">♡</span> 一天一句、慢慢学</p>
+    </footer>
+  </div>
+
+  <script>
+    // ---- Sentence Dataset (HSK 1〜4) ----
+    const SENTENCES = [
+      // ===== HSK 1 =====
+      {
+        ja: "こんにちは。", zh: "你好。", pinyin: "nǐ hǎo.", hsk: 1,
+        words: [
+          { zh: "你", py: "nǐ", ja: "あなた" },
+          { zh: "好", py: "hǎo", ja: "良い／よろしい" }
+        ],
+        grammar: "中国語で最も基本的なあいさつ。<code>你好</code>は直訳すると「あなた・良い」で、相手の調子の良さを願う言葉。丁寧に言うときは <code>您好（nín hǎo）</code>。"
+      },
+      {
+        ja: "ありがとう。", zh: "谢谢你。", pinyin: "xièxie nǐ.", hsk: 1,
+        words: [
+          { zh: "谢谢", py: "xièxie", ja: "ありがとう（動詞の重ね）" },
+          { zh: "你", py: "nǐ", ja: "あなた" }
+        ],
+        grammar: "<code>谢谢</code>だけでもOK。動詞の重ね型で柔らかく感謝を表す。返事は <code>不客气（bú kèqi）</code> または <code>不用谢</code>。",
+        alts: ["谢谢"]
+      },
+      {
+        ja: "私は学生です。", zh: "我是学生。", pinyin: "wǒ shì xuéshēng.", hsk: 1,
+        words: [
+          { zh: "我", py: "wǒ", ja: "私" },
+          { zh: "是", py: "shì", ja: "〜である（コピュラ）" },
+          { zh: "学生", py: "xuéshēng", ja: "学生" }
+        ],
+        grammar: "<strong>「主語＋是＋名詞」</strong>の基本構文。<code>是</code>は英語のbe動詞に近く、名詞をつなぐ。否定は <code>不是</code>、疑問は文末に <code>吗？</code> を付けて <code>你是学生吗？</code>。"
+      },
+      {
+        ja: "お名前は何ですか？", zh: "你叫什么名字？", pinyin: "nǐ jiào shénme míngzi?", hsk: 1,
+        words: [
+          { zh: "你", py: "nǐ", ja: "あなた" },
+          { zh: "叫", py: "jiào", ja: "（〜と）呼ぶ・名乗る" },
+          { zh: "什么", py: "shénme", ja: "何" },
+          { zh: "名字", py: "míngzi", ja: "名前" }
+        ],
+        grammar: "疑問詞 <code>什么</code>（なに）を使った疑問文。中国語の疑問詞疑問文では、英語のように語順を変えず、聞きたい場所にそのまま <code>什么</code> を置く。文末の <code>吗</code> は不要。"
+      },
+      {
+        ja: "今日は天気がいいです。", zh: "今天天气很好。", pinyin: "jīntiān tiānqì hěn hǎo.", hsk: 1,
+        words: [
+          { zh: "今天", py: "jīntiān", ja: "今日" },
+          { zh: "天气", py: "tiānqì", ja: "天気" },
+          { zh: "很", py: "hěn", ja: "とても／（形容詞文の主語）" },
+          { zh: "好", py: "hǎo", ja: "良い" }
+        ],
+        grammar: "<strong>形容詞述語文</strong>。「A＋很＋形容詞」の形が基本で、<code>很</code> は強い「とても」の意味は薄く、形容詞文を整える役割。<code>很</code>を省くと比較のニュアンスが出る。"
+      },
+      {
+        ja: "私はリンゴが好きです。", zh: "我喜欢苹果。", pinyin: "wǒ xǐhuan píngguǒ.", hsk: 1,
+        words: [
+          { zh: "我", py: "wǒ", ja: "私" },
+          { zh: "喜欢", py: "xǐhuan", ja: "好きである" },
+          { zh: "苹果", py: "píngguǒ", ja: "りんご" }
+        ],
+        grammar: "<code>喜欢</code> は動詞で目的語を直接取る。「〜することが好き」と動詞を続ける場合は <code>我喜欢吃苹果</code> のように動詞句を入れる。"
+      },
+      {
+        ja: "私は二十歳です。", zh: "我二十岁。", pinyin: "wǒ èrshí suì.", hsk: 1,
+        words: [
+          { zh: "我", py: "wǒ", ja: "私" },
+          { zh: "二十", py: "èrshí", ja: "二十" },
+          { zh: "岁", py: "suì", ja: "歳（年齢の量詞）" }
+        ],
+        grammar: "<strong>年齢を言うときは <code>是</code> を省略する</strong>のが普通。「数詞＋岁」がそのまま述語になる。<code>我是二十岁</code> はやや不自然。"
+      },
+      {
+        ja: "今、何時ですか？", zh: "现在几点？", pinyin: "xiànzài jǐ diǎn?", hsk: 1,
+        words: [
+          { zh: "现在", py: "xiànzài", ja: "今" },
+          { zh: "几", py: "jǐ", ja: "いくつ（10以下を尋ねる）" },
+          { zh: "点", py: "diǎn", ja: "〜時" }
+        ],
+        grammar: "<code>几</code>は概ね10以下の数を尋ねるときに使う。10以上の可能性があるときは <code>多少</code>（例：值多少钱）。時刻は <code>是</code> 不要。"
+      },
+      {
+        ja: "彼は家にいません。", zh: "他不在家。", pinyin: "tā bú zài jiā.", hsk: 1,
+        words: [
+          { zh: "他", py: "tā", ja: "彼" },
+          { zh: "不", py: "bù", ja: "〜ない" },
+          { zh: "在", py: "zài", ja: "〜にいる" },
+          { zh: "家", py: "jiā", ja: "家" }
+        ],
+        grammar: "<code>在</code> は存在・所在を表す動詞。否定は <code>不在</code>。<code>不</code> は第4声の前で第2声 <code>bú</code> に変調する（声調変化）。"
+      },
+      {
+        ja: "私は水が飲みたい。", zh: "我想喝水。", pinyin: "wǒ xiǎng hē shuǐ.", hsk: 1,
+        words: [
+          { zh: "我", py: "wǒ", ja: "私" },
+          { zh: "想", py: "xiǎng", ja: "〜したい（願望の助動詞）" },
+          { zh: "喝", py: "hē", ja: "飲む" },
+          { zh: "水", py: "shuǐ", ja: "水" }
+        ],
+        grammar: "<strong>助動詞 <code>想</code></strong>＋動詞 で「〜したい」。<code>要</code>（強い意志）、<code>想</code>（願望）、<code>愿意</code>（意欲）の使い分けに注意。否定は <code>不想</code>。"
+      },
+      {
+        ja: "これは私の本です。", zh: "这是我的书。", pinyin: "zhè shì wǒ de shū.", hsk: 1,
+        words: [
+          { zh: "这", py: "zhè", ja: "これ" },
+          { zh: "是", py: "shì", ja: "〜である" },
+          { zh: "我", py: "wǒ", ja: "私" },
+          { zh: "的", py: "de", ja: "〜の（所有・修飾）" },
+          { zh: "书", py: "shū", ja: "本" }
+        ],
+        grammar: "<strong>修飾助詞 <code>的</code></strong>。「A＋的＋B」で「AのB」。親族や所属など密接な関係では省略可（<code>我妈妈</code>、<code>我们学校</code>）。"
+      },
+      {
+        ja: "私には妹が一人います。", zh: "我有一个妹妹。", pinyin: "wǒ yǒu yí ge mèimei.", hsk: 1,
+        words: [
+          { zh: "我", py: "wǒ", ja: "私" },
+          { zh: "有", py: "yǒu", ja: "持つ／いる" },
+          { zh: "一个", py: "yí ge", ja: "1人／1個" },
+          { zh: "妹妹", py: "mèimei", ja: "妹" }
+        ],
+        grammar: "所有・存在を表す動詞 <code>有</code>。数を言うときは「数詞＋量詞＋名詞」で <code>个</code> は最も汎用的な量詞。<code>有</code> の否定は <code>没有</code>（<code>不有</code> は誤り）。"
+      },
+
+      // ===== HSK 2 =====
+      {
+        ja: "私は毎日7時に起きます。", zh: "我每天七点起床。", pinyin: "wǒ měitiān qī diǎn qǐchuáng.", hsk: 2,
+        words: [
+          { zh: "每天", py: "měitiān", ja: "毎日" },
+          { zh: "七点", py: "qī diǎn", ja: "7時" },
+          { zh: "起床", py: "qǐchuáng", ja: "起きる" }
+        ],
+        grammar: "<strong>時間詞は動詞の前</strong>に置く。順序は「主語＋時間＋場所＋動詞」。中国語は <code>I get up at 7</code> のように後ろに置かない点が英語と大きく違う。"
+      },
+      {
+        ja: "昨日、私はお店に行きました。", zh: "昨天我去了商店。", pinyin: "zuótiān wǒ qù le shāngdiàn.", hsk: 2,
+        words: [
+          { zh: "昨天", py: "zuótiān", ja: "昨日" },
+          { zh: "去", py: "qù", ja: "行く" },
+          { zh: "了", py: "le", ja: "（完了）" },
+          { zh: "商店", py: "shāngdiàn", ja: "店" }
+        ],
+        grammar: "<strong>動詞＋<code>了</code></strong>で動作の完了を表す。中国語には英語のような「過去形」はなく、<code>了</code> や時間詞（昨天）で時制を示す。否定は <code>没去</code>（<code>了</code> は付かない）。"
+      },
+      {
+        ja: "この服はとてもきれいです。", zh: "这件衣服很漂亮。", pinyin: "zhè jiàn yīfu hěn piàoliang.", hsk: 2,
+        words: [
+          { zh: "这", py: "zhè", ja: "この" },
+          { zh: "件", py: "jiàn", ja: "（衣服の量詞）" },
+          { zh: "衣服", py: "yīfu", ja: "服" },
+          { zh: "漂亮", py: "piàoliang", ja: "きれい" }
+        ],
+        grammar: "<strong>量詞</strong>は名詞ごとに決まっている。<code>件</code>は服・事柄、<code>个</code>は人や一般、<code>本</code>は本、<code>张</code>は紙・テーブルなど。「指示詞＋量詞＋名詞」の語順。"
+      },
+      {
+        ja: "これはいくらですか？", zh: "这个多少钱？", pinyin: "zhège duōshao qián?", hsk: 2,
+        words: [
+          { zh: "这个", py: "zhège", ja: "これ" },
+          { zh: "多少", py: "duōshao", ja: "いくら／いくつ" },
+          { zh: "钱", py: "qián", ja: "お金" }
+        ],
+        grammar: "<code>多少</code>は数の大小を問わず使える疑問詞。<code>几</code>は10以下の少ない数を尋ねる時に使う。値段はもっぱら <code>多少钱</code>。"
+      },
+      {
+        ja: "私は中華料理が作れます。", zh: "我会做中国菜。", pinyin: "wǒ huì zuò Zhōngguó cài.", hsk: 2,
+        words: [
+          { zh: "会", py: "huì", ja: "（学習して）できる" },
+          { zh: "做", py: "zuò", ja: "作る・する" },
+          { zh: "中国菜", py: "Zhōngguó cài", ja: "中華料理" }
+        ],
+        grammar: "<strong>助動詞 <code>会</code></strong>は「学習・訓練して習得した能力」。生まれつき／条件があってできる場合は <code>能</code>、許可は <code>可以</code>。"
+      },
+      {
+        ja: "彼は私より背が高い。", zh: "他比我高。", pinyin: "tā bǐ wǒ gāo.", hsk: 2,
+        words: [
+          { zh: "他", py: "tā", ja: "彼" },
+          { zh: "比", py: "bǐ", ja: "〜より（比較）" },
+          { zh: "我", py: "wǒ", ja: "私" },
+          { zh: "高", py: "gāo", ja: "高い" }
+        ],
+        grammar: "<strong>比較構文「A＋比＋B＋形容詞」</strong>。差を言うときは末尾に <code>一点</code>（少し）、<code>得多</code>（ずっと）を付ける：<code>他比我高一点</code>。否定は <code>没有...那么高</code>。"
+      },
+      {
+        ja: "一緒に行きましょう。", zh: "我们一起去吧。", pinyin: "wǒmen yìqǐ qù ba.", hsk: 2,
+        words: [
+          { zh: "我们", py: "wǒmen", ja: "私たち" },
+          { zh: "一起", py: "yìqǐ", ja: "一緒に" },
+          { zh: "去", py: "qù", ja: "行く" },
+          { zh: "吧", py: "ba", ja: "（勧誘・提案の語気）" }
+        ],
+        grammar: "<strong>語気助詞 <code>吧</code></strong>は「〜しましょう／〜でしょ？」と提案・推量・軽い命令を表す。<code>吗</code>（疑問）、<code>呢</code>（再問・継続）と区別。"
+      },
+      {
+        ja: "彼は今電話中です。", zh: "他正在打电话。", pinyin: "tā zhèngzài dǎ diànhuà.", hsk: 2,
+        words: [
+          { zh: "正在", py: "zhèngzài", ja: "〜している最中（進行）" },
+          { zh: "打", py: "dǎ", ja: "（電話などを）かける" },
+          { zh: "电话", py: "diànhuà", ja: "電話" }
+        ],
+        grammar: "<strong>進行アスペクト</strong>。<code>正在＋V</code>、<code>在＋V</code>、<code>V＋呢</code>、または併用 <code>正在...呢</code> でも表現可能。否定は <code>没在...</code>。"
+      },
+      {
+        ja: "もう食べました。", zh: "我已经吃过了。", pinyin: "wǒ yǐjīng chī guo le.", hsk: 2,
+        words: [
+          { zh: "已经", py: "yǐjīng", ja: "もう・既に" },
+          { zh: "吃", py: "chī", ja: "食べる" },
+          { zh: "过", py: "guo", ja: "〜したことがある（経験）" },
+          { zh: "了", py: "le", ja: "（変化・完了）" }
+        ],
+        grammar: "<code>过</code> は経験を表すアスペクト。<code>已经...了</code> は「もう〜した」のセットでよく使う。否定は <code>没（有）...过</code>：<code>我没吃过</code>。"
+      },
+      {
+        ja: "ゆっくり話してください。", zh: "请慢点说。", pinyin: "qǐng màn diǎn shuō.", hsk: 2,
+        words: [
+          { zh: "请", py: "qǐng", ja: "どうぞ（丁寧）" },
+          { zh: "慢", py: "màn", ja: "遅い・ゆっくり" },
+          { zh: "点", py: "diǎn", ja: "少し（=一点）" },
+          { zh: "说", py: "shuō", ja: "話す" }
+        ],
+        grammar: "<code>形容詞＋一点</code>で「もう少し〜」。<code>慢点</code>＝<code>慢一点</code>。<code>请</code>を頭に付けると丁寧。命令文の柔らかい表現としてよく使う。"
+      },
+      {
+        ja: "部屋に2人います。", zh: "房间里有两个人。", pinyin: "fángjiān lǐ yǒu liǎng ge rén.", hsk: 2,
+        words: [
+          { zh: "房间", py: "fángjiān", ja: "部屋" },
+          { zh: "里", py: "lǐ", ja: "〜の中" },
+          { zh: "有", py: "yǒu", ja: "ある／いる" },
+          { zh: "两个", py: "liǎng ge", ja: "二つ／二人" }
+        ],
+        grammar: "<strong>存在文「場所＋有＋人/物」</strong>。「2」は量詞の前では <code>两</code>（liǎng）になる（<code>二</code> ではない）。例：<code>两个</code>、<code>两本</code>。"
+      },
+      {
+        ja: "なぜ来ないの？", zh: "你为什么不来？", pinyin: "nǐ wèishénme bù lái?", hsk: 2,
+        words: [
+          { zh: "为什么", py: "wèishénme", ja: "なぜ" },
+          { zh: "不", py: "bù", ja: "〜ない" },
+          { zh: "来", py: "lái", ja: "来る" }
+        ],
+        grammar: "<code>为什么</code> は動詞の前に置く。理由を答えるときは <code>因为...所以...</code>（〜なので…）。<code>不</code>（一般的否定）と <code>没</code>（完了の否定）を区別。"
+      },
+
+      // ===== HSK 3 =====
+      {
+        ja: "もし明日雨が降ったら、私は行きません。", zh: "如果明天下雨，我就不去。", pinyin: "rúguǒ míngtiān xià yǔ, wǒ jiù bú qù.", hsk: 3,
+        words: [
+          { zh: "如果", py: "rúguǒ", ja: "もし" },
+          { zh: "下雨", py: "xià yǔ", ja: "雨が降る" },
+          { zh: "就", py: "jiù", ja: "（条件の帰結）すぐに／なら" },
+          { zh: "不去", py: "bú qù", ja: "行かない" }
+        ],
+        grammar: "<strong>仮定構文「如果...就...」</strong>。<code>如果</code>の代わりに <code>要是</code>、<code>假如</code> も可。後節の <code>就</code> は「条件が満たされればすぐに」のニュアンスで、ほぼ必須セット。"
+      },
+      {
+        ja: "彼は疲れているけれど、まだ働いています。", zh: "虽然他很累，但是还在工作。", pinyin: "suīrán tā hěn lèi, dànshì hái zài gōngzuò.", hsk: 3,
+        words: [
+          { zh: "虽然", py: "suīrán", ja: "〜だけれども" },
+          { zh: "累", py: "lèi", ja: "疲れている" },
+          { zh: "但是", py: "dànshì", ja: "しかし" },
+          { zh: "还", py: "hái", ja: "まだ・依然として" }
+        ],
+        grammar: "<strong>逆接構文「虽然...但是...」</strong>。英語の though...still... と違い、中国語では <code>虽然</code> と <code>但是</code> を両方とも使うのが自然（片方だけでも可）。"
+      },
+      {
+        ja: "私は自転車で来ました。", zh: "我是骑自行车来的。", pinyin: "wǒ shì qí zìxíngchē lái de.", hsk: 3,
+        words: [
+          { zh: "是", py: "shì", ja: "（強調）" },
+          { zh: "骑", py: "qí", ja: "（自転車などに）乗る" },
+          { zh: "自行车", py: "zìxíngchē", ja: "自転車" },
+          { zh: "来", py: "lái", ja: "来る" },
+          { zh: "的", py: "de", ja: "（強調文末）" }
+        ],
+        grammar: "<strong>「是...的」構文</strong>。既に起きたことについて、<strong>時間・場所・方法・目的</strong>を強調する。「いつ／どこで／どうやって〜したか」を尋ねる/伝えるときに頻出。"
+      },
+      {
+        ja: "早く寝た方がいいよ。", zh: "你最好早点睡觉。", pinyin: "nǐ zuìhǎo zǎo diǎn shuìjiào.", hsk: 3,
+        words: [
+          { zh: "最好", py: "zuìhǎo", ja: "〜した方がよい" },
+          { zh: "早点", py: "zǎo diǎn", ja: "早めに" },
+          { zh: "睡觉", py: "shuìjiào", ja: "寝る" }
+        ],
+        grammar: "<code>最好</code> は「〜するのが一番いい＝〜した方がいい」のアドバイス表現。<code>应该</code>（〜すべき）よりやや柔らかい。"
+      },
+      {
+        ja: "この本はあの本より面白い。", zh: "这本书比那本有意思。", pinyin: "zhè běn shū bǐ nà běn yǒu yìsi.", hsk: 3,
+        words: [
+          { zh: "本", py: "běn", ja: "（本の量詞）" },
+          { zh: "比", py: "bǐ", ja: "〜より" },
+          { zh: "有意思", py: "yǒu yìsi", ja: "面白い" }
+        ],
+        grammar: "比較構文の応用。「比＋N」のNでは前出の名詞を量詞で受ける（<code>那本（书）</code>）。<code>有意思</code> は形容詞的に振る舞う「面白い」。"
+      },
+      {
+        ja: "心配しないで、大丈夫。", zh: "别担心，没关系。", pinyin: "bié dānxīn, méi guānxi.", hsk: 3,
+        words: [
+          { zh: "别", py: "bié", ja: "〜するな" },
+          { zh: "担心", py: "dānxīn", ja: "心配する" },
+          { zh: "没关系", py: "méi guānxi", ja: "大丈夫／関係ない" }
+        ],
+        grammar: "<strong>禁止の <code>别</code>＋V</strong>＝<code>不要＋V</code>。「〜しないで」。柔らかく言うなら <code>别...了</code>：<code>别担心了</code>。"
+      },
+      {
+        ja: "彼はテレビを見ながらご飯を食べる。", zh: "他一边看电视一边吃饭。", pinyin: "tā yìbiān kàn diànshì yìbiān chīfàn.", hsk: 3,
+        words: [
+          { zh: "一边", py: "yìbiān", ja: "〜しながら" },
+          { zh: "看电视", py: "kàn diànshì", ja: "テレビを見る" },
+          { zh: "吃饭", py: "chīfàn", ja: "ご飯を食べる" }
+        ],
+        grammar: "<strong>「一边A，一边B」</strong>＝「Aしながら、Bする」。同時並行動作を表す。動詞の前に置く点に注意。"
+      },
+      {
+        ja: "私はあなたが来ないと思っていた。", zh: "我以为你不来了。", pinyin: "wǒ yǐwéi nǐ bù lái le.", hsk: 3,
+        words: [
+          { zh: "以为", py: "yǐwéi", ja: "（誤って）〜と思っていた" },
+          { zh: "不来", py: "bù lái", ja: "来ない" },
+          { zh: "了", py: "le", ja: "（状況変化）" }
+        ],
+        grammar: "<strong><code>以为</code> と <code>认为</code> の違い</strong>：<code>以为</code> は<strong>事実と異なっていた</strong>思い込みを表す（あなたが来ないと思っていた→実際は来た）。<code>认为</code> は中立的な「〜と考える」。"
+      },
+      {
+        ja: "だんだん寒くなってきた。", zh: "越来越冷了。", pinyin: "yuè lái yuè lěng le.", hsk: 3,
+        words: [
+          { zh: "越来越", py: "yuè lái yuè", ja: "ますます〜" },
+          { zh: "冷", py: "lěng", ja: "寒い" },
+          { zh: "了", py: "le", ja: "（変化）" }
+        ],
+        grammar: "<strong>「越来越＋形容詞」</strong>＝「ますます〜」。<strong>「越A越B」</strong>と区別（A するほど B：<code>越多越好</code>）。文末の <code>了</code> は変化のニュアンス。"
+      },
+      {
+        ja: "鍵を家に忘れてきた。", zh: "我把钥匙忘在家里了。", pinyin: "wǒ bǎ yàoshi wàng zài jiā li le.", hsk: 3,
+        words: [
+          { zh: "把", py: "bǎ", ja: "（処置を導く前置詞）" },
+          { zh: "钥匙", py: "yàoshi", ja: "鍵" },
+          { zh: "忘", py: "wàng", ja: "忘れる" },
+          { zh: "在家里", py: "zài jiā li", ja: "家に" }
+        ],
+        grammar: "<strong>「把」構文</strong>＝「AをBにする／〜してしまう」。目的語を動詞の前に出して、その目的語に対して何かを<strong>処置</strong>することを強調する。「主語＋把＋目的語＋動詞＋補語/了」の語順。"
+      },
+      {
+        ja: "中国語を3年勉強しました。", zh: "我学了三年中文。", pinyin: "wǒ xué le sān nián Zhōngwén.", hsk: 3,
+        words: [
+          { zh: "学", py: "xué", ja: "学ぶ" },
+          { zh: "了", py: "le", ja: "（完了）" },
+          { zh: "三年", py: "sān nián", ja: "3年間" },
+          { zh: "中文", py: "Zhōngwén", ja: "中国語" }
+        ],
+        grammar: "<strong>動作の継続時間</strong>は<strong>動詞の直後</strong>。「V＋了＋時間＋目的語」。「今も学んでいる」と言いたければ <code>我学了三年中文了</code>（文末にも <code>了</code>）。"
+      },
+      {
+        ja: "この料理は美味しそうです。", zh: "这道菜尝起来很好吃。", pinyin: "zhè dào cài cháng qǐlái hěn hǎochī.", hsk: 3,
+        words: [
+          { zh: "道", py: "dào", ja: "（料理の量詞）" },
+          { zh: "尝", py: "cháng", ja: "味見する" },
+          { zh: "起来", py: "qǐlái", ja: "〜してみると" },
+          { zh: "好吃", py: "hǎochī", ja: "美味しい" }
+        ],
+        grammar: "<strong>「V＋起来＋形容詞」</strong>＝「〜してみると〜だ」。<code>看起来</code>（見たところ）、<code>听起来</code>（聞いた感じ）、<code>说起来</code>（言ってみれば）など定番表現多数。"
+      },
+
+      // ===== HSK 4 =====
+      {
+        ja: "努力を通じて、彼はついに夢を実現した。", zh: "通过努力，他终于实现了梦想。", pinyin: "tōngguò nǔlì, tā zhōngyú shíxiàn le mèngxiǎng.", hsk: 4,
+        words: [
+          { zh: "通过", py: "tōngguò", ja: "〜を通じて" },
+          { zh: "努力", py: "nǔlì", ja: "努力" },
+          { zh: "终于", py: "zhōngyú", ja: "ついに" },
+          { zh: "实现", py: "shíxiàn", ja: "実現する" },
+          { zh: "梦想", py: "mèngxiǎng", ja: "夢" }
+        ],
+        grammar: "<code>通过</code> は手段・方法を導く前置詞。<code>终于</code> は長い時間や努力の<strong>末にようやく</strong>到達したというニュアンス（プラスの結果でよく使う）。"
+      },
+      {
+        ja: "どんなに忙しくても、あなたに電話します。", zh: "不管多忙，我都会给你打电话。", pinyin: "bùguǎn duō máng, wǒ dōu huì gěi nǐ dǎ diànhuà.", hsk: 4,
+        words: [
+          { zh: "不管", py: "bùguǎn", ja: "〜にかかわらず" },
+          { zh: "多忙", py: "duō máng", ja: "どんなに忙しくても" },
+          { zh: "都", py: "dōu", ja: "すべて／とにかく" },
+          { zh: "给", py: "gěi", ja: "〜に（対象）" }
+        ],
+        grammar: "<strong>「不管...都...」</strong>＝「〜にかかわらず…」。<code>不管</code>の後は疑問詞・選択肢・「多＋形容詞」など「不確定要素」を入れる。同義表現に <code>无论...都...</code>（書面語寄り）。"
+      },
+      {
+        ja: "彼は中国語だけでなく、日本語も話せる。", zh: "他不仅会说中文，还会说日语。", pinyin: "tā bùjǐn huì shuō Zhōngwén, hái huì shuō Rìyǔ.", hsk: 4,
+        words: [
+          { zh: "不仅", py: "bùjǐn", ja: "〜だけでなく" },
+          { zh: "还", py: "hái", ja: "さらに" },
+          { zh: "中文", py: "Zhōngwén", ja: "中国語" },
+          { zh: "日语", py: "Rìyǔ", ja: "日本語" }
+        ],
+        grammar: "<strong>「不仅...，还/也...」</strong>＝「〜だけでなく、さらに〜」。<code>不但</code> も同義。後節で主語が変わる場合は <code>不仅A...，B也...</code>。"
+      },
+      {
+        ja: "たとえ雨でも、試合は予定通り行います。", zh: "即使下雨，比赛也照常进行。", pinyin: "jíshǐ xià yǔ, bǐsài yě zhàocháng jìnxíng.", hsk: 4,
+        words: [
+          { zh: "即使", py: "jíshǐ", ja: "たとえ〜でも" },
+          { zh: "比赛", py: "bǐsài", ja: "試合" },
+          { zh: "照常", py: "zhàocháng", ja: "いつも通り" },
+          { zh: "进行", py: "jìnxíng", ja: "行う・進める" }
+        ],
+        grammar: "<strong>「即使...也...」</strong>は<strong>仮定の譲歩</strong>＝「（仮に）〜だとしても」。<code>虽然...但是...</code>（事実の譲歩：〜だけれども）と区別。"
+      },
+      {
+        ja: "年を取るにつれ、静けさが好きになってきた。", zh: "随着年龄的增长，我越来越喜欢安静。", pinyin: "suízhe niánlíng de zēngzhǎng, wǒ yuè lái yuè xǐhuan ānjìng.", hsk: 4,
+        words: [
+          { zh: "随着", py: "suízhe", ja: "〜にともなって" },
+          { zh: "年龄", py: "niánlíng", ja: "年齢" },
+          { zh: "增长", py: "zēngzhǎng", ja: "増える・伸びる" },
+          { zh: "安静", py: "ānjìng", ja: "静か" }
+        ],
+        grammar: "<code>随着＋N（の変化）</code>＝「Nの変化につれて」。後節と <code>越来越</code> や <code>也...</code> をセットでよく使う。書き言葉でも口語でも頻出。"
+      },
+      {
+        ja: "この小説は一読の価値がある。", zh: "这本小说值得一读。", pinyin: "zhè běn xiǎoshuō zhíde yì dú.", hsk: 4,
+        words: [
+          { zh: "小说", py: "xiǎoshuō", ja: "小説" },
+          { zh: "值得", py: "zhíde", ja: "〜する価値がある" },
+          { zh: "一读", py: "yì dú", ja: "一読" }
+        ],
+        grammar: "<code>值得＋V</code>＝「〜する価値がある」。「一＋V」は「ちょっと〜してみる」のニュアンス。<code>值得</code> の否定は <code>不值得</code>。"
+      },
+      {
+        ja: "文句を言うよりは、行動しよう。", zh: "与其抱怨，不如行动。", pinyin: "yǔqí bàoyuàn, bùrú xíngdòng.", hsk: 4,
+        words: [
+          { zh: "与其", py: "yǔqí", ja: "〜するよりはむしろ" },
+          { zh: "抱怨", py: "bàoyuàn", ja: "不平を言う" },
+          { zh: "不如", py: "bùrú", ja: "〜の方がよい" },
+          { zh: "行动", py: "xíngdòng", ja: "行動する" }
+        ],
+        grammar: "<strong>「与其A，不如B」</strong>＝「AよりむしろBの方がよい」。選択を表す決まり文句。"
+      },
+      {
+        ja: "私は中国文化に興味があります。", zh: "我对中国文化感兴趣。", pinyin: "wǒ duì Zhōngguó wénhuà gǎn xìngqù.", hsk: 4,
+        words: [
+          { zh: "对", py: "duì", ja: "〜に対して" },
+          { zh: "中国文化", py: "Zhōngguó wénhuà", ja: "中国文化" },
+          { zh: "感兴趣", py: "gǎn xìngqù", ja: "興味がある" }
+        ],
+        grammar: "<strong>前置詞 <code>对</code></strong>＝「〜に対して／〜について」。<code>对...感兴趣</code>、<code>对...有兴趣</code> は定番。<code>对</code> は動詞の前。"
+      },
+      {
+        ja: "来月結婚するそうです。", zh: "听说他下个月要结婚。", pinyin: "tīngshuō tā xià ge yuè yào jiéhūn.", hsk: 4,
+        words: [
+          { zh: "听说", py: "tīngshuō", ja: "聞くところによると" },
+          { zh: "下个月", py: "xià ge yuè", ja: "来月" },
+          { zh: "要", py: "yào", ja: "〜する予定だ" },
+          { zh: "结婚", py: "jiéhūn", ja: "結婚する" }
+        ],
+        grammar: "<code>听说</code> は文頭に置いて伝聞「〜だそうだ」。<code>要＋V</code> は「（近い未来）〜する予定／〜しそう」。<code>快要...了</code>（もうすぐ〜）と並ぶ未来表現。"
+      },
+      {
+        ja: "来たのだから、ご飯を食べていって。", zh: "既然你来了，就留下来吃饭吧。", pinyin: "jìrán nǐ lái le, jiù liú xiàlái chīfàn ba.", hsk: 4,
+        words: [
+          { zh: "既然", py: "jìrán", ja: "〜である以上は" },
+          { zh: "就", py: "jiù", ja: "（帰結）" },
+          { zh: "留下来", py: "liú xiàlái", ja: "残る・留まる" },
+          { zh: "吃饭", py: "chīfàn", ja: "ご飯を食べる" }
+        ],
+        grammar: "<strong>「既然...就...」</strong>＝「すでに〜なのだから、…」。<code>如果...就...</code>（仮定）と区別：<code>既然</code> は<strong>すでに分かっている事実</strong>を前提にする。"
+      },
+      {
+        ja: "この問題は解決するのが難しそうだ。", zh: "这个问题恐怕不容易解决。", pinyin: "zhège wèntí kǒngpà bù róngyì jiějué.", hsk: 4,
+        words: [
+          { zh: "问题", py: "wèntí", ja: "問題" },
+          { zh: "恐怕", py: "kǒngpà", ja: "おそらく（悪い結果の推量）" },
+          { zh: "容易", py: "róngyì", ja: "容易だ" },
+          { zh: "解决", py: "jiějué", ja: "解決する" }
+        ],
+        grammar: "<code>恐怕</code> は<strong>マイナスの推測</strong>（〜じゃないかと心配だ）。プラスの推測は <code>可能</code>、<code>大概</code>、<code>也许</code>。"
+      },
+      {
+        ja: "彼は仕事にとても真面目だ。", zh: "他对工作十分认真。", pinyin: "tā duì gōngzuò shífēn rènzhēn.", hsk: 4,
+        words: [
+          { zh: "对", py: "duì", ja: "〜に対して" },
+          { zh: "工作", py: "gōngzuò", ja: "仕事" },
+          { zh: "十分", py: "shífēn", ja: "非常に" },
+          { zh: "认真", py: "rènzhēn", ja: "真面目だ" }
+        ],
+        grammar: "<code>十分</code> は <code>非常</code>、<code>很</code> よりやや書き言葉的な「非常に」。<code>对＋N＋形容詞/態度</code> で「Nに対して〜だ」の構文。"
+      }
+    ];
+
+    // ---- State ----
+    const STORAGE_KEY = "cn-practice-v1";
+    const defaultState = {
+      streak: 0,
+      lastDate: "",
+      todayCount: 0,
+      total: 0,
+      level: "all",
+      favorites: [],
+      seenIds: []
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return { ...defaultState };
+        return { ...defaultState, ...JSON.parse(raw) };
+      } catch {
+        return { ...defaultState };
+      }
+    }
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    const state = loadState();
+
+    // ---- Streak reset / day change ----
+    function todayStr() {
+      const d = new Date();
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    }
+    function yesterdayStr() {
+      const d = new Date();
+      d.setDate(d.getDate() - 1);
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    }
+
+    function rollDayIfNeeded() {
+      const today = todayStr();
+      if (state.lastDate !== today) {
+        // If last activity was yesterday, streak continues but todayCount resets
+        // If last activity was older, streak is reset
+        if (state.lastDate && state.lastDate !== yesterdayStr() && state.todayCount > 0 === false) {
+          // streak broken only when we open a new day after missing
+        }
+        state.todayCount = 0;
+        // Note: streak updates when user completes the first sentence of the day
+      }
+    }
+    rollDayIfNeeded();
+
+    // ---- DOM ----
+    const $ = (sel) => document.querySelector(sel);
+    const elStreak = $("#streak");
+    const elTodayCount = $("#today-count");
+    const elTotal = $("#total");
+    const elHskBadge = $("#hsk-badge");
+    const elQuestion = $("#question-ja");
+    const elInput = $("#answer-input");
+    const elCheckBtn = $("#check-btn");
+    const elHintBtn = $("#hint-btn");
+    const elSkipBtn = $("#skip-btn");
+    const elHintArea = $("#hint-area");
+    const elResult = $("#result-area");
+    const elFavBtn = $("#fav-btn");
+    const levelBtns = document.querySelectorAll(".level-btn");
+
+    let currentItem = null;
+    let currentIdx = -1;
+    let checked = false;
+
+    // ---- Filter & pick ----
+    function getPool() {
+      if (state.level === "all") return SENTENCES.map((s, i) => ({ s, i }));
+      if (state.level === "fav") {
+        return SENTENCES
+          .map((s, i) => ({ s, i }))
+          .filter(({ i }) => state.favorites.includes(i));
+      }
+      const lv = Number(state.level);
+      return SENTENCES.map((s, i) => ({ s, i })).filter(({ s }) => s.hsk === lv);
+    }
+
+    function pickNext() {
+      const pool = getPool();
+      if (pool.length === 0) {
+        currentItem = null;
+        currentIdx = -1;
+        elQuestion.textContent = state.level === "fav"
+          ? "お気に入りの文がまだありません。⭐を押して登録してね。"
+          : "この条件の文がありません。";
+        elInput.value = "";
+        elInput.disabled = true;
+        elCheckBtn.disabled = true;
+        elHintArea.innerHTML = "";
+        elResult.innerHTML = "";
+        elHskBadge.style.visibility = "hidden";
+        return;
+      }
+      elHskBadge.style.visibility = "visible";
+      elInput.disabled = false;
+      elCheckBtn.disabled = false;
+
+      // Prefer items not recently seen
+      const unseen = pool.filter(({ i }) => !state.seenIds.includes(i));
+      const pickFrom = unseen.length > 0 ? unseen : pool;
+      const idx = Math.floor(Math.random() * pickFrom.length);
+      const picked = pickFrom[idx];
+
+      state.seenIds.push(picked.i);
+      if (state.seenIds.length > Math.max(20, Math.floor(SENTENCES.length * 0.6))) {
+        state.seenIds.shift();
+      }
+
+      currentItem = picked.s;
+      currentIdx = picked.i;
+      checked = false;
+      elQuestion.textContent = currentItem.ja;
+      elHskBadge.textContent = `HSK ${currentItem.hsk}`;
+      elInput.value = "";
+      elInput.focus();
+      elHintArea.innerHTML = "";
+      elResult.innerHTML = "";
+      updateFavButton();
+      saveState();
+    }
+
+    // ---- Hint ----
+    function showHint() {
+      if (!currentItem) return;
+      const first = currentItem.zh.charAt(0);
+      const pyFirst = (currentItem.words[0] && currentItem.words[0].py) || "";
+      elHintArea.innerHTML = `最初の字は <strong class="zh">${first}</strong>（${pyFirst}）、合計 ${currentItem.zh.length} 文字`;
+    }
+
+    // ---- Normalize & compare ----
+    function normalize(s) {
+      return (s || "")
+        .replace(/[\s　]/g, "")
+        .replace(/[，。．、！？!?,.;:；：]/g, "")
+        .trim();
+    }
+
+    function compareAnswer(user, correct) {
+      const u = normalize(user);
+      const c = normalize(correct);
+      if (u === c) return { verdict: "correct" };
+      if (u.length === 0) return { verdict: "wrong", diff: "（未入力）" };
+
+      // Simple char-level LCS for diff highlighting
+      const m = u.length, n = c.length;
+      const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+      for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+          if (u[i - 1] === c[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1;
+          else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+        }
+      }
+      const lcs = dp[m][n];
+      const similarity = (2 * lcs) / (m + n);
+
+      // Build diff against correct, marking missing chars
+      let i = m, j = n;
+      const ops = [];
+      while (i > 0 && j > 0) {
+        if (u[i - 1] === c[j - 1]) { ops.push({ type: "ok", ch: c[j - 1] }); i--; j--; }
+        else if (dp[i - 1][j] >= dp[i][j - 1]) { ops.push({ type: "extra", ch: u[i - 1] }); i--; }
+        else { ops.push({ type: "miss", ch: c[j - 1] }); j--; }
+      }
+      while (i > 0) { ops.push({ type: "extra", ch: u[i - 1] }); i--; }
+      while (j > 0) { ops.push({ type: "miss", ch: c[j - 1] }); j--; }
+      ops.reverse();
+      const diff = ops.map(op => {
+        if (op.type === "ok") return `<span class="diff-correct">${op.ch}</span>`;
+        if (op.type === "miss") return `<span class="diff-missing">${op.ch}</span>`;
+        return `<span class="diff-wrong">${op.ch}</span>`;
+      }).join("");
+
+      return {
+        verdict: similarity > 0.7 ? "partial" : "wrong",
+        diff,
+        similarity
+      };
+    }
+
+    function checkAlternatives(user) {
+      const u = normalize(user);
+      if (normalize(currentItem.zh) === u) return true;
+      if (currentItem.alts) {
+        return currentItem.alts.some(a => normalize(a) === u);
+      }
+      return false;
+    }
+
+    // ---- Result ----
+    function renderResult(user) {
+      const cmp = compareAnswer(user, currentItem.zh);
+      const isCorrect = checkAlternatives(user) || cmp.verdict === "correct";
+
+      let verdictHTML;
+      if (isCorrect) {
+        verdictHTML = `<div class="verdict verdict-correct"><span class="emoji">🌸</span>完璧！太棒了！</div>`;
+      } else if (cmp.verdict === "partial") {
+        verdictHTML = `<div class="verdict verdict-partial"><span class="emoji">🌷</span>惜しい！もう少しだよ</div>`;
+      } else {
+        verdictHTML = `<div class="verdict verdict-wrong"><span class="emoji">💭</span>模範解答を見てみよう</div>`;
+      }
+
+      const wordsHTML = currentItem.words.map(w => `
+        <div class="word-item">
+          <div class="word-zh zh">${w.zh}</div>
+          <div class="word-pinyin">${w.py}</div>
+          <div class="word-ja">${w.ja}</div>
+        </div>
+      `).join("");
+
+      const yourAnswerHTML = (user && !isCorrect)
+        ? `<div class="your-answer"><span style="color:var(--ink-mute);font-size:12px;">あなたの答え：</span><br>${cmp.diff || user}</div>`
+        : "";
+
+      elResult.innerHTML = `
+        <div class="result">
+          ${verdictHTML}
+
+          <div class="answer-block">
+            <div class="label">模範解答</div>
+            <div class="answer-zh zh">
+              <span>${currentItem.zh}</span>
+              <button class="speak-btn" id="speak-btn" title="発音を聞く">🔊</button>
+            </div>
+            <div class="answer-pinyin">${currentItem.pinyin}</div>
+            ${yourAnswerHTML}
+          </div>
+
+          <div class="section-title">単語</div>
+          <div class="words-grid">${wordsHTML}</div>
+
+          <div class="section-title">文法ポイント</div>
+          <div class="grammar-block">${currentItem.grammar}</div>
+
+          <div class="next-wrap">
+            <button class="btn btn-next" id="next-btn">次の文へ ✿</button>
+          </div>
+        </div>
+      `;
+
+      // Bind buttons inside result
+      $("#speak-btn").addEventListener("click", () => speak(currentItem.zh));
+      $("#next-btn").addEventListener("click", pickNext);
+
+      // Update stats only once per question
+      if (!checked) {
+        const today = todayStr();
+        if (state.lastDate === today) {
+          state.todayCount += 1;
+        } else {
+          // First answer of a new day → roll streak
+          if (state.lastDate === yesterdayStr()) {
+            state.streak += 1;
+          } else {
+            state.streak = 1;
+          }
+          state.lastDate = today;
+          state.todayCount = 1;
+        }
+        state.total += 1;
+        renderStats();
+        saveState();
+      }
+      checked = true;
+      elCheckBtn.disabled = true;
+      elInput.disabled = true;
+
+      // Auto play pronunciation
+      setTimeout(() => speak(currentItem.zh), 350);
+    }
+
+    // ---- TTS voice handling ----
+    let zhVoice = null;
+    function pickZhVoice() {
+      if (!window.speechSynthesis) return;
+      const voices = window.speechSynthesis.getVoices();
+      if (!voices || voices.length === 0) return;
+      const preferredNames = [
+        "Tingting", "Ting-Ting", "Sin-ji", "Mei-Jia",
+        "Microsoft Xiaoxiao", "Microsoft Yaoyao", "Microsoft Huihui",
+        "Google 普通话（中国大陆）", "Google 中文（中国大陆）"
+      ];
+      // 1) Exact lang match zh-CN with preferred name
+      zhVoice =
+        voices.find(v => /^zh[-_]CN/i.test(v.lang) && preferredNames.some(n => v.name.includes(n))) ||
+        voices.find(v => /^zh[-_]CN/i.test(v.lang)) ||
+        voices.find(v => /^cmn[-_]?/i.test(v.lang)) ||
+        voices.find(v => /^zh/i.test(v.lang)) ||
+        null;
+    }
+    if (window.speechSynthesis) {
+      pickZhVoice();
+      window.speechSynthesis.addEventListener("voiceschanged", pickZhVoice);
+    }
+
+    function speak(text) {
+      try {
+        const synth = window.speechSynthesis;
+        if (!synth) return;
+        synth.cancel();
+        if (!zhVoice) pickZhVoice();
+        const u = new SpeechSynthesisUtterance(text);
+        if (zhVoice) {
+          u.voice = zhVoice;
+          u.lang = zhVoice.lang;
+        } else {
+          u.lang = "zh-CN";
+        }
+        u.rate = 0.85;
+        u.pitch = 1;
+        synth.speak(u);
+      } catch (e) {
+        // No-op
+      }
+    }
+
+    // ---- Favorites ----
+    function updateFavButton() {
+      if (currentIdx === -1) return;
+      const on = state.favorites.includes(currentIdx);
+      elFavBtn.classList.toggle("active", on);
+      elFavBtn.textContent = on ? "⭐" : "☆";
+    }
+    elFavBtn.addEventListener("click", () => {
+      if (currentIdx === -1) return;
+      const idx = state.favorites.indexOf(currentIdx);
+      if (idx >= 0) state.favorites.splice(idx, 1);
+      else state.favorites.push(currentIdx);
+      saveState();
+      updateFavButton();
+    });
+
+    // ---- Stats ----
+    function renderStats() {
+      elStreak.textContent = state.streak;
+      elTodayCount.textContent = state.todayCount;
+      elTotal.textContent = state.total;
+      const todayPill = elTodayCount.parentElement;
+      if (state.todayCount >= 10) {
+        elTodayCount.classList.add("goal-met");
+      } else {
+        elTodayCount.classList.remove("goal-met");
+      }
+    }
+    renderStats();
+
+    // ---- Level switch ----
+    function setLevel(lv) {
+      state.level = lv;
+      levelBtns.forEach(b => b.classList.toggle("active", b.dataset.level === lv));
+      saveState();
+      pickNext();
+    }
+    levelBtns.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.level === state.level);
+      btn.addEventListener("click", () => setLevel(btn.dataset.level));
+    });
+
+    // ---- Event ----
+    elCheckBtn.addEventListener("click", () => {
+      if (!currentItem || checked) return;
+      renderResult(elInput.value);
+    });
+    elHintBtn.addEventListener("click", showHint);
+    elSkipBtn.addEventListener("click", pickNext);
+    elInput.addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+        e.preventDefault();
+        elCheckBtn.click();
+      }
+    });
+
+    // ---- Start ----
+    pickNext();
+  </script>
+</body>
+</html>
