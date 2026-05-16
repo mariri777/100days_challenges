@@ -2823,25 +2823,36 @@
     elHintBtn.addEventListener("click", showHint);
     elSkipBtn.addEventListener("click", pickNext);
     // Enter で答え合わせ（Shift+Enter は改行）。IME 変換中は無視。
+    // 採点に使った Enter がそのまま「次へ」に流れないよう、
+    // 一度キーを離してから（keyup を経由してから）でないと「次へ」を発火させない。
+    let enterArmedForNext = false;
+
     elInput.addEventListener("keydown", (e) => {
       if (e.key !== "Enter") return;
-      // IME 確定（Chrome/Safari: isComposing、一部ブラウザ: keyCode 229）はスルー
       if (e.isComposing || e.keyCode === 229) return;
       if (e.shiftKey) return; // 改行は Shift+Enter
       if (checked) return;
       e.preventDefault();
+      e.stopPropagation();
+      enterArmedForNext = false; // 採点直後は disarmed
       elCheckBtn.click();
     });
 
-    // 採点後（input が disabled になっている時）にも Enter で「次へ／もう一度」へ
+    // 採点後（input が disabled）に Enter で「次へ／もう一度」
     document.addEventListener("keydown", (e) => {
       if (e.key !== "Enter") return;
       if (e.isComposing || e.keyCode === 229) return;
       if (e.shiftKey || e.metaKey || e.ctrlKey) return;
       if (currentView !== "practice") return;
-      if (!checked) return; // 採点後のみ
+      if (!checked) return;
+      if (!enterArmedForNext) return; // 一度 keyup を経由していないと無視
       const nb = document.getElementById("next-btn");
-      if (nb) { e.preventDefault(); nb.click(); }
+      if (nb) { e.preventDefault(); nb.click(); enterArmedForNext = false; }
+    });
+
+    // Enter を離した時点で「次へ」を arm する（キーリピートでの突き抜けを防止）
+    document.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") enterArmedForNext = true;
     });
     elFavBtn.addEventListener("click", toggleFavorite);
 
