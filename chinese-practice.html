@@ -2376,6 +2376,18 @@
       renderHeader();
     }
 
+    // Retry the SAME sentence without picking a new one
+    function retryCurrent() {
+      if (!currentSent) return;
+      checked = false;
+      elInput.value = "";
+      elInput.disabled = false;
+      elCheckBtn.disabled = false;
+      elHintArea.innerHTML = "";
+      elResult.innerHTML = "";
+      elInput.focus();
+    }
+
     function renderHeader() {
       const course = getCourse(state.currentCourseId);
       if (!course) return;
@@ -2489,7 +2501,13 @@
         </div>
       `;
       $("#speak-btn").addEventListener("click", () => speak(currentSent.zh));
-      $("#next-btn").addEventListener("click", pickNext);
+      $("#next-btn").addEventListener("click", () => {
+        if (isCorrect) {
+          pickNext();
+        } else {
+          retryCurrent();
+        }
+      });
 
       if (!checked) {
         const today = todayStr();
