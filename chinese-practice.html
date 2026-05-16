@@ -54,7 +54,11 @@
     .header h1 {
       font-family: "Fraunces", serif; font-weight: 600;
       font-size: clamp(28px, 5vw, 42px); line-height: 1.1; letter-spacing: -.02em;
+      cursor: pointer; display: inline-block; transition: transform .15s ease, color .15s ease;
     }
+    .header h1:hover { transform: translateY(-1px); }
+    .header h1:hover .accent { color: var(--pink); }
+    .header h1:active { transform: translateY(0); }
     .header h1 .accent { color: var(--pink-deep); font-style: italic; font-weight: 500; }
     .header h1 .zh-title {
       display: block; font-family: "Noto Sans SC", serif; font-weight: 500;
@@ -545,7 +549,7 @@
   <div class="container">
     <header class="header">
       <span class="header-eyebrow">Chinese Output Trainer</span>
-      <h1>
+      <h1 id="home-link" role="link" tabindex="0" title="トップへ戻る">
         Daily <span class="accent">中国語</span> Talk
         <span class="zh-title">你好！每天一句中文输出</span>
       </h1>
@@ -2095,7 +2099,8 @@
       mastered: {},        // { courseId: [sentIdx, ...] }
       completedCourses: [],
       favorites: [],       // ["courseId-sentIdx"]
-      recentInCourse: {}   // { courseId: [sentIdx, ...] } (avoid immediate repeats)
+      recentInCourse: {},  // { courseId: [sentIdx, ...] } (avoid immediate repeats)
+      inProgress: null     // { courseId, sentIdx, input } - 練習中に離脱した場合の途中状態
     };
 
     function loadState() {
@@ -2255,12 +2260,46 @@
     function startPractice() {
       renderHeader();
       showView("practice");
+      // 途中保存がそのコース宛なら、その文から再開
+      const ip = state.inProgress;
+      if (ip && ip.courseId === state.currentCourseId
+          && !masteredList(state.currentCourseId).includes(ip.sentIdx)) {
+        const course = getCourse(state.currentCourseId);
+        if (course && course.sentences[ip.sentIdx]) {
+          currentSent = course.sentences[ip.sentIdx];
+          currentSentIdx = ip.sentIdx;
+          checked = false;
+          elQuestion.textContent = currentSent.ja;
+          elInput.value = ip.input || "";
+          elInput.disabled = false;
+          elCheckBtn.disabled = false;
+          elInput.focus();
+          elHintArea.innerHTML = "";
+          elResult.innerHTML = "";
+          renderFav();
+          renderHeader();
+          return;
+        }
+      }
       pickNext();
     }
 
     let currentSent = null;
     let currentSentIdx = -1;
     let checked = false;
+
+    // 練習中の途中状態を保存（未回答の文 + 入力中のテキスト）
+    function saveInProgress() {
+      if (currentView !== "practice") return;
+      if (!currentSent || currentSentIdx < 0) return;
+      if (checked) return; // 採点済みの文は途中扱いしない
+      state.inProgress = {
+        courseId: state.currentCourseId,
+        sentIdx: currentSentIdx,
+        input: elInput.value || ""
+      };
+      saveState();
+    }
 
     // ========================================================================
     // TTS
@@ -2337,6 +2376,9 @@
     function pickNext() {
       const course = getCourse(state.currentCourseId);
       if (!course) return;
+
+      // 別の文へ移るので、以前の途中保存は破棄
+      state.inProgress = null;
 
       const mastered = masteredList(state.currentCourseId);
       if (mastered.length >= course.sentences.length) {
@@ -2523,6 +2565,8 @@
         if (isCorrect && !alreadyMastered) {
           markMastered(state.currentCourseId, currentSentIdx);
         }
+        // 採点したので途中保存をクリア
+        state.inProgress = null;
         renderStats();
         renderHeader();
         saveState();
@@ -2601,9 +2645,25 @@
       });
     });
 
+    // タイトルクリック → トップ（HOME）へ（途中の場合は記録を保存）
+    function goHome() {
+      saveInProgress();
+      renderHome();
+      renderStats();
+      showView("home");
+    }
+    const elHomeLink = document.getElementById("home-link");
+    if (elHomeLink) {
+      elHomeLink.addEventListener("click", goHome);
+      elHomeLink.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); goHome(); }
+      });
+    }
+
     // 戻るボタン
     document.querySelectorAll(".back-link").forEach(btn => {
       btn.addEventListener("click", () => {
+        saveInProgress();
         const target = btn.dataset.back;
         if (target === "home") {
           renderHome();
@@ -2616,6 +2676,20 @@
           showView("level");
         }
       });
+    });
+
+    // 入力途中のテキスト変更も保存（その場で書き込み過ぎないよう軽くデバウンス）
+    let _ipSaveTimer = null;
+    elInput.addEventListener("input", () => {
+      if (!currentSent || checked) return;
+      clearTimeout(_ipSaveTimer);
+      _ipSaveTimer = setTimeout(saveInProgress, 400);
+    });
+
+    // タブを閉じる/離れる時にも保存
+    window.addEventListener("beforeunload", saveInProgress);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") saveInProgress();
     });
 
     // Intro画面 → 練習開始
