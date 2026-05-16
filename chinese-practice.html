@@ -364,6 +364,169 @@
     .diff-wrong { color: var(--red); text-decoration: line-through; }
     .diff-missing { color: var(--pink-darker); font-weight: 600; background: var(--bg-soft); padding: 0 4px; border-radius: 3px; }
 
+    /* ---- Views (home / level / intro / practice) ---- */
+    .view[hidden] { display: none !important; }
+
+    .view-title {
+      font-family: "Fraunces", serif; font-weight: 500;
+      font-size: 22px; color: var(--ink); text-align: center;
+      margin: 8px 0 22px;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: inherit; font-size: 13px; font-weight: 600;
+      color: var(--pink-deep); background: var(--white);
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 8px 14px; cursor: pointer; margin-bottom: 16px;
+      transition: all .2s ease;
+    }
+    .back-link:hover { background: var(--bg-soft); transform: translateX(-2px); }
+
+    /* HSK level cards */
+    .hsk-cards {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px; margin-bottom: 20px;
+    }
+    .hsk-card {
+      position: relative; display: flex; flex-direction: column; gap: 6px;
+      padding: 22px 20px; text-align: left;
+      background: var(--white); border: 1.5px solid var(--line);
+      border-radius: 22px; cursor: pointer; box-shadow: var(--shadow);
+      transition: all .25s cubic-bezier(.2,.8,.2,1);
+      overflow: hidden; font-family: inherit;
+    }
+    .hsk-card::before {
+      content: ""; position: absolute; top: -30px; right: -30px;
+      width: 90px; height: 90px;
+      background: radial-gradient(circle, var(--pink-light) 0%, transparent 70%);
+      border-radius: 50%; opacity: .7; transition: transform .4s ease;
+    }
+    .hsk-card:hover {
+      transform: translateY(-4px); border-color: var(--pink);
+      box-shadow: var(--shadow-lg);
+    }
+    .hsk-card:hover::before { transform: scale(1.4); }
+    .hsk-card-num {
+      font-family: "Fraunces", serif; font-weight: 600;
+      font-size: 26px; color: var(--pink-darker);
+      letter-spacing: -.01em; position: relative; z-index: 1;
+    }
+    .hsk-card-label {
+      font-size: 12px; color: var(--ink-soft); position: relative; z-index: 1;
+    }
+    .hsk-card-progress {
+      margin-top: 6px; font-family: "JetBrains Mono", monospace;
+      font-size: 12px; color: var(--pink-deep); font-weight: 600;
+      position: relative; z-index: 1;
+    }
+    .hsk-card-progress .done-tag {
+      display: inline-block; margin-left: 6px;
+      font-size: 10px; color: var(--green); font-weight: 700;
+    }
+
+    /* Course list (level view) */
+    .course-cards {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .course-card {
+      display: flex; flex-direction: column; gap: 8px;
+      padding: 18px 20px; text-align: left;
+      background: var(--white); border: 1.5px solid var(--line);
+      border-radius: 18px; cursor: pointer; box-shadow: var(--shadow);
+      transition: all .2s ease; font-family: inherit;
+    }
+    .course-card:hover { transform: translateX(4px); border-color: var(--pink); }
+    .course-card.done { background: linear-gradient(135deg, #fff 0%, var(--green-soft) 100%); border-color: var(--green); }
+    .course-card.current { border-color: var(--pink); border-width: 2px; }
+    .cc-head {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .cc-num {
+      font-family: "JetBrains Mono", monospace; font-size: 11px;
+      font-weight: 600; color: var(--pink-darker);
+      background: var(--bg-soft); padding: 3px 9px; border-radius: 6px;
+    }
+    .course-card.done .cc-num { background: rgba(255,255,255,.8); color: var(--green); }
+    .cc-status {
+      margin-left: auto; font-size: 11px; font-weight: 700;
+      color: var(--ink-mute); font-family: "JetBrains Mono", monospace;
+    }
+    .cc-status.done { color: var(--green); }
+    .cc-title {
+      font-family: "Fraunces", "Hiragino Kaku Gothic ProN", serif;
+      font-weight: 500; font-size: 18px; color: var(--ink);
+    }
+    .cc-bar-wrap { display: flex; align-items: center; gap: 10px; }
+    .cc-track {
+      flex: 1; height: 6px; background: var(--bg-soft);
+      border-radius: 999px; overflow: hidden;
+    }
+    .cc-bar {
+      height: 100%; background: linear-gradient(90deg, #ffc6a8, var(--pink));
+      border-radius: 999px; transition: width .5s cubic-bezier(.2,.8,.2,1);
+    }
+    .course-card.done .cc-bar { background: var(--green); }
+
+    /* Intro view */
+    .intro-card {
+      background: var(--white); border: 1px solid var(--line);
+      border-radius: 24px; padding: 28px 24px;
+      box-shadow: var(--shadow-lg); position: relative; overflow: hidden;
+    }
+    .intro-card::before {
+      content: ""; position: absolute; top: -60px; right: -60px;
+      width: 150px; height: 150px;
+      background: radial-gradient(circle, #ffd6dd 0%, transparent 70%);
+      border-radius: 50%; opacity: .5; pointer-events: none;
+    }
+    .intro-meta {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 10px; position: relative; z-index: 1;
+    }
+    .intro-title {
+      font-family: "Fraunces", "Hiragino Kaku Gothic ProN", serif;
+      font-weight: 500; font-size: 24px; line-height: 1.3;
+      color: var(--ink); margin-bottom: 14px;
+      position: relative; z-index: 1;
+    }
+    .intro-overview {
+      font-size: 14px; line-height: 1.85; color: var(--ink-soft);
+      margin-bottom: 22px; position: relative; z-index: 1;
+    }
+    .intro-section-title {
+      font-size: 12px; font-weight: 700; letter-spacing: .15em;
+      color: var(--pink-deep); text-transform: uppercase;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+      position: relative; z-index: 1;
+    }
+    .intro-section-title::before {
+      content: "🌸"; font-size: 14px;
+    }
+    .intro-points {
+      list-style: none; padding: 0; margin: 0 0 24px;
+      display: flex; flex-direction: column; gap: 10px;
+      position: relative; z-index: 1;
+    }
+    .intro-points li {
+      padding: 12px 14px 12px 38px; position: relative;
+      background: var(--bg-soft); border-radius: 12px;
+      font-size: 14px; line-height: 1.7; color: var(--ink);
+    }
+    .intro-points li::before {
+      content: "✿"; position: absolute; left: 14px; top: 12px;
+      color: var(--pink); font-size: 14px;
+    }
+    .intro-points code {
+      font-family: "Noto Sans SC", "JetBrains Mono", monospace;
+      background: var(--white); padding: 1px 6px;
+      border-radius: 4px; color: var(--pink-darker); font-size: .95em;
+    }
+    .intro-points strong { color: var(--pink-darker); font-weight: 700; }
+    .intro-start {
+      width: 100%; justify-content: center; padding: 14px 20px !important;
+      font-size: 15px !important; position: relative; z-index: 1;
+    }
+
     @media (max-width: 640px) {
       .container { padding: 24px 14px 56px; }
       .card { padding: 22px 18px; border-radius: 20px; }
@@ -395,60 +558,105 @@
       <span class="stat-pill"><span class="icon">📚</span>累計 <span class="value" id="total">0</span> 文</span>
     </div>
 
-    <div class="course-banner">
-      <div class="course-info">
-        <span class="hsk-tag">HSK <span id="course-hsk">1</span></span>
-        <span class="course-label">Course <span id="course-num">1</span> / <span id="total-courses">24</span></span>
-      </div>
-      <h2 class="course-title" id="course-title">読み込み中…</h2>
-      <div class="course-progress">
-        <div class="progress-track"><div class="progress-bar" id="course-bar"></div></div>
-        <span class="progress-text"><span class="mn" id="mastered-count">0</span> / 10 マスター</span>
-      </div>
-      <div class="course-actions">
-        <button class="mini-btn" id="open-list-btn">📚 コース一覧</button>
-        <button class="mini-btn" id="reset-course-btn">↺ このコースをリセット</button>
+    <!-- ============ HOME VIEW ============ -->
+    <div class="view view-home" id="view-home">
+      <h2 class="view-title">学びたい級を選ぼう ✿</h2>
+      <div class="hsk-cards">
+        <button class="hsk-card" data-hsk="1">
+          <span class="hsk-card-num">HSK 1</span>
+          <span class="hsk-card-label">入門 · 約150語</span>
+          <span class="hsk-card-progress" data-hsk-progress="1">3 コース</span>
+        </button>
+        <button class="hsk-card" data-hsk="2">
+          <span class="hsk-card-num">HSK 2</span>
+          <span class="hsk-card-label">初級 · 約300語</span>
+          <span class="hsk-card-progress" data-hsk-progress="2">3 コース</span>
+        </button>
+        <button class="hsk-card" data-hsk="3">
+          <span class="hsk-card-num">HSK 3</span>
+          <span class="hsk-card-label">初中級 · 約600語</span>
+          <span class="hsk-card-progress" data-hsk-progress="3">6 コース</span>
+        </button>
+        <button class="hsk-card" data-hsk="4">
+          <span class="hsk-card-num">HSK 4</span>
+          <span class="hsk-card-label">中級 · 約1200語</span>
+          <span class="hsk-card-progress" data-hsk-progress="4">12 コース</span>
+        </button>
       </div>
     </div>
 
-    <main class="card">
-      <div class="card-head">
-        <span class="q-num">Question <span class="now" id="q-progress">1</span> / 10</span>
-        <button class="fav-btn" id="fav-btn" title="お気に入り">☆</button>
+    <!-- ============ LEVEL VIEW ============ -->
+    <div class="view view-level" id="view-level" hidden>
+      <button class="back-link" data-back="home">← HSK選択へ</button>
+      <h2 class="view-title">HSK <span id="level-num">1</span> のコース一覧</h2>
+      <div class="course-cards" id="level-courses"></div>
+    </div>
+
+    <!-- ============ INTRO VIEW ============ -->
+    <div class="view view-intro" id="view-intro" hidden>
+      <button class="back-link" data-back="level">← コース一覧へ</button>
+      <div class="intro-card">
+        <div class="intro-meta">
+          <span class="hsk-tag">HSK <span id="intro-hsk">1</span></span>
+          <span class="course-label">Course <span id="intro-num">1</span></span>
+        </div>
+        <h2 class="intro-title" id="intro-title">コース名</h2>
+        <p class="intro-overview" id="intro-overview"></p>
+        <div class="intro-section-title">このコースで学ぶこと</div>
+        <ul class="intro-points" id="intro-points"></ul>
+        <button class="btn btn-primary intro-start" id="intro-start-btn">10問にチャレンジ ✿</button>
+      </div>
+    </div>
+
+    <!-- ============ PRACTICE VIEW ============ -->
+    <div class="view view-practice" id="view-practice" hidden>
+      <button class="back-link" data-back="level">← コース一覧へ</button>
+
+      <div class="course-banner">
+        <div class="course-info">
+          <span class="hsk-tag">HSK <span id="course-hsk">1</span></span>
+          <span class="course-label">Course <span id="course-num">1</span> / <span id="total-courses">24</span></span>
+        </div>
+        <h2 class="course-title" id="course-title">読み込み中…</h2>
+        <div class="course-progress">
+          <div class="progress-track"><div class="progress-bar" id="course-bar"></div></div>
+          <span class="progress-text"><span class="mn" id="mastered-count">0</span> / 10 マスター</span>
+        </div>
+        <div class="course-actions">
+          <button class="mini-btn" id="open-intro-btn">📖 ポイント再確認</button>
+          <button class="mini-btn" id="reset-course-btn">↺ このコースをリセット</button>
+        </div>
       </div>
 
-      <div class="question-label">Translate to Chinese</div>
-      <div class="question-ja" id="question-ja">読み込み中…</div>
+      <main class="card">
+        <div class="card-head">
+          <span class="q-num">Question <span class="now" id="q-progress">1</span> / 10</span>
+          <button class="fav-btn" id="fav-btn" title="お気に入り">☆</button>
+        </div>
 
-      <div class="input-wrap">
-        <textarea class="answer-input zh" id="answer-input"
-          placeholder="ここに中国語で入力（例：我是学生）"
-          autocomplete="off" spellcheck="false"></textarea>
-      </div>
+        <div class="question-label">Translate to Chinese</div>
+        <div class="question-ja" id="question-ja">読み込み中…</div>
 
-      <div class="actions">
-        <button class="btn btn-primary" id="check-btn">✿ 答え合わせ</button>
-        <button class="btn btn-ghost" id="hint-btn">💡 ヒント</button>
-        <button class="btn btn-ghost" id="skip-btn">⤴ スキップ</button>
-      </div>
+        <div class="input-wrap">
+          <textarea class="answer-input zh" id="answer-input"
+            placeholder="ここに中国語で入力（例：我是学生）"
+            autocomplete="off" spellcheck="false"></textarea>
+        </div>
 
-      <div id="hint-area"></div>
-      <div id="result-area"></div>
-    </main>
+        <div class="actions">
+          <button class="btn btn-primary" id="check-btn">✿ 答え合わせ</button>
+          <button class="btn btn-ghost" id="hint-btn">💡 ヒント</button>
+          <button class="btn btn-ghost" id="skip-btn">⤴ スキップ</button>
+        </div>
+
+        <div id="hint-area"></div>
+        <div id="result-area"></div>
+      </main>
+    </div>
 
     <footer class="footer">
       <p>加油！<span class="heart">♡</span> 一天一句、慢慢学</p>
     </footer>
-  </div>
-
-  <!-- Course list modal -->
-  <div class="modal" id="course-modal">
-    <div class="modal-content">
-      <button class="modal-close" data-close>×</button>
-      <h3>📚 コース一覧</h3>
-      <p class="modal-sub">10問すべて正解で次コース解放。どのコースにもいつでも戻れます。</p>
-      <div class="course-list" id="course-list"></div>
-    </div>
   </div>
 
   <!-- Course complete modal -->
@@ -1797,6 +2005,84 @@
     ];
 
     // ========================================================================
+    // COURSE INTROS (each course's learning points)
+    // ========================================================================
+    const COURSE_INTROS = [
+      // HSK 1 - C1
+      { overview: "中国語で最も基本のあいさつと、自分・相手の紹介の表現。後の学習すべての土台になる「是」構文・疑問詞・形容詞文の基本ルールを確認します。",
+        points: ["「主語＋是＋名詞」の基本構文と否定 <code>不是</code>・疑問 <code>吗</code>","疑問詞 <code>什么</code> の語順（語順を変えない）","形容詞述語文の <code>很</code>（飾りとしての役割）","「不」の声調変化（第4声の前で <code>bú</code>）","名乗りの <code>叫</code>、丁寧形 <code>您</code>"] },
+      // HSK 1 - C2
+      { overview: "数字・時刻・日付・年齢・量詞といった、日常会話に欠かせない数量表現を一気に押さえます。",
+        points: ["疑問詞 <code>几</code>（10以下）vs <code>多少</code>（数の制限なし）","数字「2」の区別：<code>二</code> と <code>两</code>","量詞の基本：<code>个 / 本 / 件 / 张 / 杯</code> など","年齢・日付・曜日・時刻では <code>是</code> を省略","所有・存在の <code>有</code>、否定は必ず <code>没有</code>"] },
+      // HSK 1 - C3
+      { overview: "「いる・行く・来る・好き・〜したい・〜できる」など、動作と所有・場所の基本表現。指示代名詞や方位詞も学びます。",
+        points: ["<code>在</code> の3用法（動詞・前置詞・副詞）","助動詞 <code>想</code>（願望）/ <code>要</code>（意志）/ <code>会</code>（学んでできる）","進行アスペクト <code>在＋V</code>","指示代名詞 <code>这 / 那 / 哪</code>","方位詞 <code>上 / 下 / 里 / 外</code> など","所有・修飾の <code>的</code>（省略可能なケース）"] },
+      // HSK 2 - C4
+      { overview: "中国語に過去形はありません。代わりに「了」と「过」が完了・経験を担います。否定の「没」との関係も超重要です。",
+        points: ["動詞＋<code>了</code>＝完了・実現（過去形ではない）","動詞＋<code>过</code>＝経験「〜したことがある」","否定の <code>不</code>（意志・恒常）vs <code>没</code>（完了の否定）","<code>还没＋V</code>＝「まだ〜していない」","<code>已经...了</code> のセット表現","文末 <code>了</code> は状況変化（動詞直後の <code>了</code> と区別）"] },
+      // HSK 2 - C5
+      { overview: "現在進行中の動作、近い未来、強い意志と願望。日常会話で最も使う「今〜している」「これから〜する」表現を整理します。",
+        points: ["進行の4形式：<code>在 / 正在 / V呢 / 正在...呢</code>","助動詞 <code>要</code> の3義（意志・近未来・必要）","<code>想</code> と <code>要</code> の強さの違い","近未来 <code>快要...了 / 就要...了</code>","<code>正</code>（ちょうど）/ <code>呢</code>（〜してるよ）のニュアンス"] },
+      // HSK 2 - C6
+      { overview: "「AはBより〜」の比較構文、「できる」三兄弟、依頼・提案など、会話で頻出の対人表現を集めました。",
+        points: ["比較構文「A＋比＋B＋形」と差量（<code>一点 / 得多 / 多了</code>）","<code>会 / 能 / 可以</code> の使い分け","副詞 <code>也 / 都</code> の位置（動詞の前）","<code>给</code> の二重目的語「給＋人＋もの」","感嘆 <code>太...了</code>","重ね型「<code>慢点</code>」「<code>便宜点</code>」（少し〜に）"] },
+      // HSK 3 - C7
+      { overview: "中国語の複文の基本セット。仮定・譲歩・因果・条件など、論理的に話すのに不可欠な接続詞をまとめて習得します。",
+        points: ["仮定：<code>如果...就...</code>","事実譲歩：<code>虽然...但是...</code>","因果：<code>因为...所以...</code> と倒置 <code>...，是因为...</code>","十分条件 <code>只要...就...</code> vs 必要条件 <code>只有...才...</code>","直後性 <code>一...就...</code>","追加 <code>除了...还／也...</code>","訂正対比 <code>不是...而是...</code>"] },
+      // HSK 3 - C8
+      { overview: "「〜しながら」「ますます〜」「Bほど〜ない」など、並列・段階・比較を表現する文型。様態補語もここで本格的に登場します。",
+        points: ["<code>一边A，一边B</code> 同時動作","<code>越来越＋形</code> / <code>越A越B</code>","比較強調 <code>更／还</code>、否定 <code>没有...那么...</code>","<code>跟...一样</code> 等値比較","様態補語「V＋得＋形」と目的語処理","動作の継続時間「V＋了＋時間量＋目的語」"] },
+      // HSK 3 - C9
+      { overview: "中国語学習の最大の山「把構文」。目的語を動詞の前に出し、それに対する処置を強調する独特の語順を体系的に練習します。",
+        points: ["「主語＋把＋目的語＋V＋補語/了」基本形","<strong>必須要件</strong>：目的語は特定のもの、動詞は補語等を伴う","<code>V＋在＋場所</code>（着点）","<code>V＋给＋人</code>（与格）","<code>V＋好／完／错</code>（結果補語との組合せ）","意図しない変化（<code>把杯子打破了</code>）"] },
+      // HSK 3 - C10
+      { overview: "動詞の後に置いて結果を示す「結果補語」を一気に習得。動作の結末を表す中国語独特の表現で、HSK3最大の重要文法です。",
+        points: ["感覚の結果 <code>见</code>：<code>看见 / 听见</code>","理解の結果 <code>懂</code>：<code>听懂 / 看懂</code>","達成の結果 <code>到</code>：<code>找到 / 买到 / 想到</code>","間違いの結果 <code>错</code>：<code>写错 / 听错</code>","完了の結果 <code>完</code>：<code>吃完 / 看完</code>","その他：<code>对 / 好 / 清楚 / 住</code>","否定形「<code>没＋V＋補語</code>」（了は付けない）"] },
+      // HSK 3 - C11
+      { overview: "補語の応用編。動詞のし方を評価する様態補語、移動の方向を示す方向補語、可能性を表す可能補語の3兄弟を整理します。",
+        points: ["様態補語の目的語処理（動詞反復 or 目的語前置）","程度補語「形＋得＋動詞句」（〜くて〜する）","方向補語 <code>来／去</code> 基本","複合方向補語 <code>进来／出去／回去</code>","可能補語 <code>V得＋補 / V不＋補</code>（〜できる／できない）"] },
+      // HSK 3 - C12
+      { overview: "義務・使役・推量・伝聞など、話し手の判断や態度を示す表現。「思う」三兄弟の使い分けは特に重要です。",
+        points: ["助動詞 <code>应该</code>（義務的当然＆推測的当然）","使役 <code>让／叫／使／请</code> の違い","「思う」三兄弟：<code>以为</code>（誤った思い込み）/ <code>认为</code>（理性）/ <code>觉得</code>（主観）","推量副詞 <code>可能 / 大概 / 也许 / 一定</code>","伝聞 <code>听说</code>","<code>对...感兴趣</code>、感情の使役「<code>让我难过</code>」","禁止 <code>别</code>、応答 <code>没关系</code>"] },
+      // HSK 4 - C13
+      { overview: "「どんなに〜でも」「たとえ〜でも」「〜だからこそ」など、HSK4で頻出の譲歩・条件無関係・既成事実の接続詞群。",
+        points: ["条件無関係：<code>不管／无论／不论...都／也...</code>","仮定譲歩：<code>即使／即便／哪怕...也...</code>","既成事実：<code>既然...就...</code>","一旦性：<code>一旦...就...</code>","後節 <code>都／也</code> 必須のルール"] },
+      // HSK 4 - C14
+      { overview: "「〜だけでなく」「〜しない限り」「AよりむしろB」など、論述・スピーチでも活きる高度な複文をまとめて習得。",
+        points: ["並列追加：<code>不仅...还／也／而且...</code>","唯一条件：<code>除非...否则／才...</code>","必要条件：<code>只有...才...</code>","選択：<code>与其...不如... / 宁可...也不...</code>","訂正：<code>不是...而是... / 不是...就是...</code>","因果倒置：<code>之所以...是因为...</code>","手段：<code>通过＋N</code>"] },
+      // HSK 4 - C15
+      { overview: "書面語的でフォーマルな因果・推量・由来の表現。プレゼン・記事・正式な場で使える語彙を中心に学びます。",
+        points: ["書面語の因果 <code>由于...，因此...</code>","マイナス推量 <code>恐怕</code>","客観的推測 <code>估计</code>","可能性低め <code>也许</code>","伝聞の書面語 <code>据说</code>","感謝の理由 <code>多亏</code>","強調因果 <code>正因为...所以才...</code>"] },
+      // HSK 4 - C16
+      { overview: "「〜のように見える」「〜らしい」など観察に基づく判断と評価。意見表明の前置きや「V起来」の派生用法も整理します。",
+        points: ["観察判断 <code>看来</code>","書面語の推測 <code>似乎</code>","伝聞復習 <code>听说＋就要...了</code>","<code>V＋起来＋形</code>（〜してみると〜だ）","<code>值得＋V</code>（〜する価値がある）","視点 <code>在...看来</code> / <code>对...来说</code>","「<code>让人＋V</code>」一般的使役"] },
+      // HSK 4 - C17
+      { overview: "驚き・呆れ・諦め・念押しなど、感情を強く乗せる慣用副詞のコレクション。会話に表情を加える上級表現です。",
+        points: ["感嘆強調 <code>真／太...了</code>","意外性 <code>居然／竟然</code>","誇張 <code>简直</code>","反語 <code>难道...吗？</code>","諦め <code>反正</code>","皮肉 <code>偏偏</code>","念押し <code>千万</code>","強い願望 <code>巴不得</code>","後悔 <code>早知道就...</code>"] },
+      // HSK 4 - C18
+      { overview: "受身構文と、視点・話題・条件設定の前置詞句。書き言葉・スピーチで活躍する「フォーマルな枠組み」を一通り押さえます。",
+        points: ["受身 <code>被＋（動作主）＋V＋了／補</code>","強調 <code>是...的</code>（いつ／どこで／誰が／どうやって）","<code>由＋人＋V</code>（責任所在）","<code>对...来说</code>（〜にとって）","<code>关于</code>（話題）/ <code>至于</code>（転換）/ <code>对于</code>（対象）","<code>与...无关</code>（〜と関係ない）","<code>在...情况下／影响下／帮助下</code>"] },
+      // HSK 4 - C19
+      { overview: "HSK3で学んだ比較構文を発展させ、差量・等値・倍数・最上級まで。「ずっと〜」「全然違う」「一番〜」を自在に。",
+        points: ["差量「<code>得多／多了</code>」（ずっと〜）","否定 <code>没有...高 / 不如</code>","等値 <code>跟...一样＋形</code>","倍数 <code>比A...两倍 / 是A的两倍</code>","近似 <code>差不多</code>","強調 <code>更／还＋形</code>","最上級 <code>最＋形 / 没有什么比A更...</code>","増加表現 <code>越来越多的＋名詞</code>"] },
+      // HSK 4 - C20
+      { overview: "可能補語と方向補語の派生・抽象用法をマスター。「持ち上がらない」「思いつく」「やり続ける」など、ニュアンスの幅を広げます。",
+        points: ["可能補語 <code>V得／V不＋动／见／到／完／懂／清楚</code>","<code>V＋起来</code>（開始）/ 状態評価","<code>V＋下去</code>（継続）","<code>V＋出来</code>（出現・思いつき）","<code>能V</code> と可能補語の使い分け（一般能力 vs 具体条件）"] },
+      // HSK 4 - C21
+      { overview: "「〜につれて」「およそ〜なら」など抽象度の高い前置詞・接続詞。論述・分析・改まった会話で使われる重要表現を集めました。",
+        points: ["<code>随着＋N＋的変化</code>（〜につれて）","<code>凡是...都...</code>（およそ〜なら）","<code>对于／关于／至于</code> の使い分け","<code>通过＋N</code>（〜を通じて）","<code>由于</code>（書面語の因果）","<code>在...情况下／影响下</code>","<code>从...上说／角度</code>（視点）"] },
+      // HSK 4 - C22
+      { overview: "順番に物事を語る・要約する・話題を切り替える。プレゼンや報告に必要な「論述の流れ」を作る接続詞を一気に習得します。",
+        points: ["<code>先A，然后B</code> / <code>首先...其次...最后...</code>","<code>接着</code> 直接連続 vs <code>然后</code> 時間順","<code>起初 / 一开始</code> vs <code>后来</code>（過去）vs <code>以后</code>（未来）","<code>同时</code>（並行）","<code>此外 / 另外</code>（追加）","<code>总之</code>（要するに）"] },
+      // HSK 4 - C23
+      { overview: "「思う」「感じる」「望む」「怖い」「満足だ」など、心の動きを正確に表す動詞・形容詞。<code>对</code> や <code>为</code> との組合せが鍵。",
+        points: ["<code>以为</code>（思い込み）/ <code>认为</code>（判断）/ <code>觉得</code>（感想）","<code>感到＋感情</code>（〜と感じる）","<code>希望 / 盼望 / 渴望</code> の強さの違い","<code>害怕＋V／N</code>（〜が怖い）","<code>对＋N＋认真／满意</code>（〜に対して〜だ）","<code>为＋N＋感到...</code>（〜のために〜と感じる）"] },
+      // HSK 4 - C24
+      { overview: "極端な仮定、強い拒否、緊急対応など、決断と選択の表現。スピード感のあるリアルな会話にも対応できる仕上げのコース。",
+        points: ["選択 <code>与其...不如... / 宁可...也不...</code>","提案 <code>要不</code>","万一の備え <code>万一...怎么办？</code>","極端な譲歩 <code>哪怕...也...</code>","条件不充足の結果 <code>否则／不然</code>","書面語の仮定 <code>假如／倘若</code>","緊急対応 <code>一旦...，立刻／马上...</code>"] }
+    ];
+
+    // ========================================================================
     // STATE & STORAGE
     // ========================================================================
     const STORAGE_KEY = "cn-practice-v2";
@@ -1863,15 +2149,114 @@
     const elHintArea = $("#hint-area");
     const elResult = $("#result-area");
     const elFavBtn = $("#fav-btn");
-    const elCourseModal = $("#course-modal");
     const elCompleteModal = $("#complete-modal");
-    const elCourseList = $("#course-list");
-    const elOpenListBtn = $("#open-list-btn");
+    const elOpenIntroBtn = $("#open-intro-btn");
     const elResetCourseBtn = $("#reset-course-btn");
     const elNextCourseBtn = $("#next-course-btn");
     const elReplayCourseBtn = $("#replay-course-btn");
 
+    // Views
+    const views = {
+      home: $("#view-home"),
+      level: $("#view-level"),
+      intro: $("#view-intro"),
+      practice: $("#view-practice")
+    };
+    const elLevelNum = $("#level-num");
+    const elLevelCourses = $("#level-courses");
+    const elIntroHsk = $("#intro-hsk");
+    const elIntroNum = $("#intro-num");
+    const elIntroTitle = $("#intro-title");
+    const elIntroOverview = $("#intro-overview");
+    const elIntroPoints = $("#intro-points");
+    const elIntroStartBtn = $("#intro-start-btn");
+
     elTotalCourses.textContent = COURSES.length; // actual count
+
+    // ========================================================================
+    // VIEW MANAGEMENT
+    // ========================================================================
+    let currentView = "home";
+    let selectedLevel = 1;
+
+    function showView(name) {
+      Object.entries(views).forEach(([k, el]) => {
+        if (k === name) el.removeAttribute("hidden");
+        else el.setAttribute("hidden", "");
+      });
+      currentView = name;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderHome() {
+      [1, 2, 3, 4].forEach(hsk => {
+        const total = COURSES.filter(c => c.hsk === hsk).length;
+        const done = COURSES.reduce((acc, c, i) => {
+          return acc + (c.hsk === hsk && masteredList(i).length >= c.sentences.length ? 1 : 0);
+        }, 0);
+        const el = document.querySelector(`[data-hsk-progress="${hsk}"]`);
+        if (!el) return;
+        const doneTag = done > 0 ? ` <span class="done-tag">✓ ${done}</span>` : "";
+        el.innerHTML = `${total} コース${doneTag}`;
+      });
+    }
+
+    function renderLevelView(hsk) {
+      selectedLevel = hsk;
+      elLevelNum.textContent = hsk;
+      const items = COURSES.map((c, i) => ({ c, i })).filter(x => x.c.hsk === hsk);
+      const html = items.map(({ c, i }) => {
+        const mc = masteredList(i).length;
+        const total = c.sentences.length;
+        const done = mc >= total;
+        const isCurrent = i === state.currentCourseId;
+        const cls = ["course-card", done ? "done" : "", isCurrent ? "current" : ""].filter(Boolean).join(" ");
+        const pct = (mc / total) * 100;
+        const status = done ? "✓ 完了" : `${mc} / ${total}`;
+        return `
+          <button class="${cls}" data-course-id="${i}">
+            <div class="cc-head">
+              <span class="cc-num">Course ${i + 1}</span>
+              <span class="cc-status ${done ? 'done' : ''}">${status}</span>
+            </div>
+            <div class="cc-title">${c.title}</div>
+            <div class="cc-bar-wrap">
+              <div class="cc-track"><div class="cc-bar" style="width:${pct}%"></div></div>
+            </div>
+          </button>
+        `;
+      }).join("");
+      elLevelCourses.innerHTML = html;
+      elLevelCourses.querySelectorAll("[data-course-id]").forEach(el => {
+        el.addEventListener("click", () => {
+          const id = parseInt(el.dataset.courseId);
+          renderIntroView(id);
+        });
+      });
+    }
+
+    function renderIntroView(courseId) {
+      state.currentCourseId = courseId;
+      saveState();
+      const c = COURSES[courseId];
+      const intro = COURSE_INTROS[courseId] || { overview: "", points: [] };
+      elIntroHsk.textContent = c.hsk;
+      elIntroNum.textContent = courseId + 1;
+      elIntroTitle.textContent = c.title;
+      elIntroOverview.textContent = intro.overview;
+      elIntroPoints.innerHTML = intro.points.map(p => `<li>${p}</li>`).join("");
+      const mc = masteredList(courseId).length;
+      const total = c.sentences.length;
+      const done = mc >= total;
+      elIntroStartBtn.textContent = done ? "🌸 もう一度挑戦する" : (mc > 0 ? "続きから挑戦 ✿" : "10問にチャレンジ ✿");
+      showView("intro");
+    }
+
+    function startPractice() {
+      renderHeader();
+      showView("practice");
+      pickNext();
+    }
 
     let currentSent = null;
     let currentSentIdx = -1;
@@ -2147,70 +2532,76 @@
       }
     });
 
-    function renderCourseList() {
-      const html = COURSES.map((c, i) => {
-        const mc = masteredList(i).length;
-        const total = c.sentences.length;
-        const done = mc >= total;
-        const cur = i === state.currentCourseId;
-        const cls = ["course-list-item", done ? "done" : "", cur ? "current" : ""].filter(Boolean).join(" ");
-        const prog = done ? "✓ 完了" : `${mc}/${total}`;
-        const progCls = done ? "complete" : "";
-        return `
-          <div class="${cls}" data-jump="${i}">
-            <span class="cli-hsk">HSK ${c.hsk}</span>
-            <div class="cli-meta">
-              <div class="cli-num">Course ${i+1}</div>
-              <div class="cli-title">${c.title}</div>
-            </div>
-            <span class="cli-prog ${progCls}">${prog}</span>
-          </div>
-        `;
-      }).join("");
-      elCourseList.innerHTML = html;
-      elCourseList.querySelectorAll("[data-jump]").forEach(el => {
-        el.addEventListener("click", () => {
-          const id = parseInt(el.dataset.jump);
-          state.currentCourseId = id;
-          saveState();
-          closeModal(elCourseModal);
-          pickNext();
-        });
-      });
-    }
     function showCompleteModal() {
       const isLast = state.currentCourseId === COURSES.length - 1;
-      elNextCourseBtn.textContent = isLast ? "🌸 最初のコースに戻る" : "次のコースへ →";
+      elNextCourseBtn.textContent = isLast ? "🌸 ホームへ戻る" : "次のコースへ →";
       openModal(elCompleteModal);
     }
+
+    // 完了モーダル: 次のコースへ → 次コースのIntro画面
     elNextCourseBtn.addEventListener("click", () => {
       closeModal(elCompleteModal);
       if (state.currentCourseId < COURSES.length - 1) {
-        state.currentCourseId += 1;
+        renderIntroView(state.currentCourseId + 1);
       } else {
-        state.currentCourseId = 0;
+        renderHome();
+        showView("home");
       }
-      saveState();
-      pickNext();
     });
+
+    // 完了モーダル: もう一度 → 現コースをリセットして再開
     elReplayCourseBtn.addEventListener("click", () => {
       closeModal(elCompleteModal);
       state.mastered[state.currentCourseId] = [];
       state.completedCourses = state.completedCourses.filter(id => id !== state.currentCourseId);
       saveState();
+      renderHeader();
       pickNext();
     });
-    elOpenListBtn.addEventListener("click", () => {
-      renderCourseList();
-      openModal(elCourseModal);
+
+    // 練習画面 → ポイント再確認（Intro画面に戻る）
+    elOpenIntroBtn.addEventListener("click", () => {
+      renderIntroView(state.currentCourseId);
     });
+
+    // 練習画面 → このコースをリセット
     elResetCourseBtn.addEventListener("click", () => {
       if (!confirm("このコースの進捗をリセットしますか？")) return;
       state.mastered[state.currentCourseId] = [];
       state.completedCourses = state.completedCourses.filter(id => id !== state.currentCourseId);
       saveState();
+      renderHeader();
       pickNext();
     });
+
+    // HSKカードクリック → そのHSKのコース一覧へ
+    document.querySelectorAll(".hsk-card").forEach(card => {
+      card.addEventListener("click", () => {
+        const hsk = parseInt(card.dataset.hsk);
+        renderLevelView(hsk);
+        showView("level");
+      });
+    });
+
+    // 戻るボタン
+    document.querySelectorAll(".back-link").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.back;
+        if (target === "home") {
+          renderHome();
+          showView("home");
+        } else if (target === "level") {
+          const hsk = currentView === "practice"
+            ? COURSES[state.currentCourseId].hsk
+            : (COURSES[state.currentCourseId] ? COURSES[state.currentCourseId].hsk : selectedLevel);
+          renderLevelView(hsk);
+          showView("level");
+        }
+      });
+    });
+
+    // Intro画面 → 練習開始
+    elIntroStartBtn.addEventListener("click", startPractice);
 
     // ========================================================================
     // HINT
@@ -2241,8 +2632,8 @@
     // START
     // ========================================================================
     renderStats();
-    renderHeader();
-    pickNext();
+    renderHome();
+    showView("home");
   </script>
 </body>
 </html>
