@@ -141,7 +141,7 @@
 
     .progress-fill {
       height: 100%;
-      width: 5%; /* ← 進捗に合わせて手動で変えてもOK（例：Day 10なら 10%） */
+      width: 0%; /* JSがカード数から自動で更新します */
       background: linear-gradient(90deg, var(--peach), var(--pink));
       border-radius: 999px;
       transition: width 0.6s ease;
@@ -475,9 +475,9 @@
       <div class="progress">
         <span>Progress</span>
         <div class="progress-bar">
-          <div class="progress-fill"></div>
+          <div class="progress-fill" id="progressFill"></div>
         </div>
-        <span class="progress-count">005 / 100</span>
+        <span class="progress-count" id="progressCount">000 / 100</span>
       </div>
     </header>
 
@@ -611,8 +611,9 @@
   </div>
 
   <script>
-    // ===== カテゴリ別カウントを自動計算 =====
+    // ===== カテゴリ別カウントと進捗を自動計算 =====
     (function updateCounts() {
+      const TOTAL = 100;
       const cards = document.querySelectorAll('.card');
       const counts = { all: cards.length, tool: 0, game: 0, lp: 0 };
       cards.forEach(c => {
@@ -623,6 +624,19 @@
         const el = document.getElementById('count-' + k);
         if (el) el.textContent = counts[k];
       });
+
+      // 進捗バー & カウント
+      const done = counts.all;
+      const fill = document.getElementById('progressFill');
+      const count = document.getElementById('progressCount');
+      if (fill) {
+        requestAnimationFrame(() => {
+          fill.style.width = Math.min(done, TOTAL) / TOTAL * 100 + '%';
+        });
+      }
+      if (count) {
+        count.textContent = String(done).padStart(3, '0') + ' / ' + TOTAL;
+      }
     })();
 
     // ===== フィルタータブの動作 =====
