@@ -236,6 +236,38 @@
 
   /* ---- controls ---- */
   .controls { text-align: center; }
+  .turn-pick {
+    display: inline-flex;
+    gap: 4px;
+    background: var(--cream);
+    border: 2px solid var(--line);
+    border-radius: 999px;
+    padding: 4px;
+    margin-bottom: 12px;
+  }
+  .turn-pick button {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 800;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    background: transparent;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .turn-pick button.on {
+    background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+    color: #fff;
+  }
+  .turn-pick .pick-label {
+    align-self: center;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    font-weight: 700;
+    padding: 0 6px 0 8px;
+  }
   .turn-info {
     font-size: 0.85rem;
     color: var(--ink-soft);
@@ -336,7 +368,7 @@
     <div class="top">
       <a class="home" href="index.html">← 一覧にもどる</a>
       <h1>うさぎのすごろく</h1>
-      <p class="lead">20ターンを走って、にんじんをいちばん集めたうさぎの勝ち！🥕</p>
+      <p class="lead">決めたターン数だけ走って、にんじんをいちばん集めたうさぎの勝ち！🥕</p>
     </div>
 
     <!-- score panel -->
@@ -356,7 +388,13 @@
 
     <!-- controls -->
     <div class="controls">
-      <div class="turn-info" id="turnInfo">ターン <b>1</b> / 20 ・ <b>あなた</b> の番</div>
+      <div class="turn-pick" id="turnPick">
+        <span class="pick-label">ターン数</span>
+        <button data-turns="5">5</button>
+        <button data-turns="10" class="on">10</button>
+        <button data-turns="20">20</button>
+      </div>
+      <div class="turn-info" id="turnInfo">ターン <b>1</b> / 10 ・ <b>あなた</b> の番</div>
       <button class="btn" id="rollBtn">サイコロを振る 🎲</button>
     </div>
   </div>
@@ -415,7 +453,7 @@
 
   const START_CARROTS = 10;
   const PASS_BONUS = 2;
-  const MAX_TURN = 20;
+  let maxTurn = 10;
 
   // ===== 状態 =====
   let pos, carrots, skip, cur, turn, busy, gameOver;
@@ -485,7 +523,7 @@
   }
 
   function updateTurnInfo() {
-    turnInfo.innerHTML = `ターン <b>${turn}</b> / ${MAX_TURN} ・ <b>${PLAYERS[cur].name}</b> の番`;
+    turnInfo.innerHTML = `ターン <b>${turn}</b> / ${maxTurn} ・ <b>${PLAYERS[cur].name}</b> の番`;
   }
 
   function setMsg(html) { msgEl.innerHTML = html; }
@@ -602,7 +640,7 @@
     do {
       cur = (cur + 1) % PLAYERS.length;
       if (cur === 0) turn++;            // 一周したらターン+1
-      if (turn > MAX_TURN) { endGame(); return; }
+      if (turn > maxTurn) { endGame(); return; }
       if (skip[cur]) {
         skip[cur] = false;
         renderScores();
@@ -657,6 +695,16 @@
   }
 
   rollBtn.addEventListener("click", rollDice);
+
+  document.getElementById("turnPick").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-turns]");
+    if (!b) return;
+    if (busy && !gameOver) return; // ターン処理中は変えない
+    maxTurn = parseInt(b.dataset.turns, 10);
+    document.querySelectorAll("#turnPick button").forEach(x => x.classList.remove("on"));
+    b.classList.add("on");
+    reset();
+  });
   document.getElementById("againBtn").addEventListener("click", reset);
 
   buildBoard();
