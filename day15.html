@@ -251,6 +251,16 @@
       border-top: none;
       background: #16162e;
     }
+    .input-row.wrong {
+      animation: shake 0.25s steps(4);
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-3px); }
+      100% { transform: translateX(0); }
+    }
     .input-row .prompt {
       display: grid;
       place-items: center;
@@ -494,7 +504,10 @@
     function removeWord(o, destroyed) {
       const i = words.indexOf(o);
       if (i >= 0) words.splice(i, 1);
-      if (target === o) target = null;
+      if (target === o) {
+        target = null;
+        syncTyper(); // 狙っていたことばが消えたら入力欄も空に
+      }
 
       if (destroyed) {
         const b = document.createElement("div");
@@ -519,20 +532,20 @@
 
     // ===== タイピング処理 =====
     function handleChar(ch) {
-      if (!playing) return;
+      if (!playing) return "none";
       ch = ch.toLowerCase();
-      if (!/^[a-z-]$/.test(ch)) return;
+      if (!/^[a-z-]$/.test(ch)) return "none";
 
       if (!target) {
         // いちばん下にある、その文字で始まることばを狙う
         const cands = words
           .filter(o => o.ro[0] === ch)
           .sort((a, b) => b.y - a.y);
-        if (cands.length === 0) return;
+        if (cands.length === 0) return "miss";
         target = cands[0];
         target.el.classList.add("target");
       } else if (target.ro[target.idx] !== ch) {
-        return; // ちがう文字は無視
+        return "miss"; // ちがう文字
       }
 
       target.idx++;
@@ -546,6 +559,12 @@
         removeWord(target, true);
         updateLevel();
       }
+      return "hit";
+    }
+
+    // 入力欄に「いま打てている部分」を表示する
+    function syncTyper() {
+      typer.value = target ? target.ro.slice(0, target.idx) : "";
     }
 
     function updateLevel() {
@@ -557,10 +576,18 @@
     }
 
     // input イベント（スマホ・PC共通）
+    const inputRow = document.querySelector(".input-row");
     typer.addEventListener("input", () => {
       const v = typer.value;
-      if (v.length > 0) handleChar(v[v.length - 1]);
-      typer.value = "";
+      let result = "none";
+      if (v.length > 0) result = handleChar(v[v.length - 1]);
+      syncTyper();
+      if (result === "miss") {
+        // まちがった文字 → 入力欄をプルッと振動
+        inputRow.classList.remove("wrong");
+        void inputRow.offsetWidth;
+        inputRow.classList.add("wrong");
+      }
     });
 
     // 画面タップでも入力欄にフォーカス
