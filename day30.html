@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>30 DAYS — 100日チャレンジ、はじめの30作品</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="apple-touch-icon" href="favicon.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
+  rel="stylesheet"
+/>
+
+<style>
+  :root {
+    --bg: #f5f1e9;
+    --paper: #fffdf8;
+    --ink: #2a2620;
+    --ink-soft: #6a6157;
+    --ink-faint: #a89e90;
+    --line: #e6dccb;
+    --line-soft: #f0e9db;
+    --gold: #a8874e;
+    --gold-deep: #8a6d3a;
+    --tool: #5b8a72;
+    --game: #a86b64;
+    --lp: #8a6d86;
+    --radius: 16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Zen Kaku Gothic New", -apple-system, "Hiragino Kaku Gothic ProN", sans-serif;
+    color: var(--ink); background: var(--bg); min-height: 100vh; line-height: 1.85;
+    -webkit-font-smoothing: antialiased; letter-spacing: 0.02em;
+  }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 28px 22px 100px; }
+
+  .home-link {
+    display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--ink-soft);
+    text-decoration: none; padding: 7px 15px; border: 1px solid var(--line); border-radius: 999px;
+    background: var(--paper); transition: border-color .2s ease, color .2s ease;
+  }
+  .home-link:hover { color: var(--gold-deep); border-color: var(--gold); }
+
+  /* Hero */
+  .hero { text-align: center; margin: 62px 0 20px; }
+  .hero .eyebrow { font-family: "Shippori Mincho B1", serif; font-size: 12px; letter-spacing: 0.42em; color: var(--gold-deep); font-weight: 600; }
+  .hero .big-num {
+    font-family: "Shippori Mincho B1", serif; font-weight: 800; font-size: clamp(120px, 32vw, 240px);
+    line-height: 0.9; letter-spacing: 0.02em; margin: 10px 0 0;
+    background: linear-gradient(160deg, #b9974f 0%, #8a6d3a 55%, #b9974f 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero .big-num small { -webkit-text-fill-color: var(--ink-faint); font-size: 0.16em; letter-spacing: 0.2em; display: block; margin-top: 10px; font-weight: 600; }
+  .hero .rule { width: 40px; height: 1px; background: var(--gold); margin: 26px auto 22px; opacity: .7; }
+  .hero h1 { font-family: "Shippori Mincho B1", serif; font-weight: 700; font-size: clamp(22px, 5vw, 30px); letter-spacing: 0.12em; line-height: 1.5; }
+  .hero p { color: var(--ink-soft); font-size: 14px; max-width: 480px; margin: 18px auto 0; line-height: 2; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 40px 0 12px; }
+  .stat { text-align: center; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 18px 8px; }
+  .stat .s-num { font-family: "Shippori Mincho B1", serif; font-size: 30px; font-weight: 700; line-height: 1; }
+  .stat .s-num.tool { color: var(--tool); } .stat .s-num.game { color: var(--game); } .stat .s-num.lp { color: var(--lp); }
+  .stat .s-lbl { font-size: 11.5px; color: var(--ink-faint); letter-spacing: 0.08em; margin-top: 6px; }
+  .period { text-align: center; font-family: "Shippori Mincho B1", serif; font-size: 12.5px; color: var(--ink-faint); letter-spacing: 0.12em; margin-bottom: 40px; }
+
+  /* Filter */
+  .filters { display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; margin-bottom: 26px; }
+  .filter { font-family: "Shippori Mincho B1", serif; font-size: 13px; padding: 8px 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); color: var(--ink-soft); cursor: pointer; transition: all .18s ease; letter-spacing: 0.06em; }
+  .filter:hover { border-color: var(--gold); color: var(--gold-deep); }
+  .filter.active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+  /* Grid */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .g-card {
+    display: flex; flex-direction: column; text-decoration: none; color: inherit;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px 16px;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; position: relative; overflow: hidden;
+  }
+  .g-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c); opacity: .8; }
+  .g-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(70,55,35,.12); border-color: var(--c); }
+  .g-card .g-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .g-card .g-day { font-family: "Shippori Mincho B1", serif; font-size: 13px; font-weight: 700; color: var(--ink-faint); letter-spacing: 0.06em; }
+  .g-card .g-day b { color: var(--ink); font-size: 17px; }
+  .g-card .g-tag { font-size: 10.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; letter-spacing: 0.04em; color: var(--c); background: color-mix(in srgb, var(--c) 12%, #fff); }
+  .g-card .g-title { font-family: "Shippori Mincho B1", serif; font-size: 16px; font-weight: 700; line-height: 1.45; letter-spacing: 0.02em; flex: 1; }
+  .g-card .g-date { font-size: 11px; color: var(--ink-faint); margin-top: 12px; letter-spacing: 0.04em; }
+  .g-card.now { background: linear-gradient(160deg, #fdf6e6, #fffdf8); border-color: var(--gold); }
+  .g-card.now .g-tag { color: var(--gold-deep); background: #f6ecd4; }
+  .g-card.now .g-here { font-size: 10.5px; color: var(--gold-deep); margin-top: 12px; font-weight: 700; letter-spacing: 0.1em; }
+
+  /* Closing */
+  .closing { text-align: center; margin-top: 54px; padding: 40px 24px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
+  .closing .c-mark { font-family: "Shippori Mincho B1", serif; font-size: 30px; color: var(--gold); margin-bottom: 6px; }
+  .closing h2 { font-family: "Shippori Mincho B1", serif; font-size: clamp(18px, 4vw, 22px); font-weight: 700; letter-spacing: 0.1em; line-height: 1.6; }
+  .closing p { color: var(--ink-soft); font-size: 13.5px; max-width: 440px; margin: 14px auto 22px; line-height: 2; }
+  .closing a.cta { display: inline-flex; align-items: center; gap: 8px; font-family: "Shippori Mincho B1", serif; font-size: 14px; font-weight: 700; color: var(--paper); background: var(--ink); text-decoration: none; padding: 12px 28px; border-radius: 999px; letter-spacing: 0.08em; transition: transform .15s ease, background .15s ease; }
+  .closing a.cta:hover { transform: translateY(-1px); background: #000; }
+
+  .footer { text-align: center; margin-top: 46px; padding-top: 24px; border-top: 1px solid var(--line); font-family: "Shippori Mincho B1", serif; font-size: 12px; color: var(--ink-faint); line-height: 2.1; letter-spacing: 0.14em; }
+
+  @media (max-width: 720px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) {
+    .wrap { padding: 22px 15px 76px; }
+    .hero { margin: 40px 0 16px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 359px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="home-link" href="index.html">← 一覧へもどる</a>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="eyebrow">100 DAYS CHALLENGE</div>
+    <div class="big-num">30<small>DAYS &amp; WORKS</small></div>
+    <div class="rule"></div>
+    <h1>毎日ひとつ、つくってきた。</h1>
+    <p>診断やゲーム、架空ブランドのLP、しくみを学ぶ教材、そして日々の面倒を減らす実用ツールへ。手ざわりを変えながら重ねた、はじめの30作品です。</p>
+  </header>
+
+  <!-- ============ STATS ============ -->
+  <div class="stats">
+    <div class="stat"><div class="s-num">30</div><div class="s-lbl">作品</div></div>
+    <div class="stat"><div class="s-num tool">18</div><div class="s-lbl">ツール</div></div>
+    <div class="stat"><div class="s-num game">7</div><div class="s-lbl">ゲーム</div></div>
+    <div class="stat"><div class="s-num lp">5</div><div class="s-lbl">LP</div></div>
+  </div>
+  <div class="period">2026.05.09 — 2026.07.16</div>
+
+  <!-- ============ FILTER ============ -->
+  <div class="filters" id="filters">
+    <span class="filter active" data-f="all">すべて</span>
+    <span class="filter" data-f="tool">ツール</span>
+    <span class="filter" data-f="game">ゲーム</span>
+    <span class="filter" data-f="lp">LP</span>
+  </div>
+
+  <!-- ============ GRID ============ -->
+  <div class="grid" id="grid"></div>
+
+  <!-- ============ CLOSING ============ -->
+  <section class="closing">
+    <div class="c-mark">◍</div>
+    <h2>ここまでが、30日。</h2>
+    <p>まだ道のりは3割。次の70作品も、その日いちばん作りたいものを、ていねいに。見てくださって、ありがとうございます。</p>
+    <a class="cta" href="index.html">全作品を見る →</a>
+  </section>
+
+  <footer class="footer">
+    100 DAYS CHALLENGE ・ Day 30<br />
+    Built by usami_louis
+  </footer>
+
+</div>
+
+<script>
+  const WORKS = [
+    { n: 1,  t: "Clock & List",        c: "tool", d: "2026.05.09" },
+    { n: 2,  t: "4-7-8 ブレスガイド",    c: "tool", d: "2026.05.09" },
+    { n: 3,  t: "クリニックLP",          c: "lp",   d: "2026.05.10" },
+    { n: 4,  t: "Catch Me If You Can",  c: "game", d: "2026.05.13" },
+    { n: 5,  t: "うさぎマジカルレース",   c: "game", d: "2026.05.16" },
+    { n: 6,  t: "BEAUTÉ — コスメ診断",   c: "tool", d: "2026.05.16" },
+    { n: 7,  t: "Pâtisserie Hidamari",  c: "lp",   d: "2026.05.17" },
+    { n: 8,  t: "10-min Kitchen",       c: "tool", d: "2026.05.18" },
+    { n: 9,  t: "紡 TSUMUGI — お取り寄せ", c: "lp", d: "2026.05.19" },
+    { n: 10, t: "うさぎでGO",            c: "game", d: "2026.05.23" },
+    { n: 11, t: "ドットすけっち",        c: "game", d: "2026.05.31" },
+    { n: 12, t: "うさぎのすごろく",      c: "game", d: "2026.06.02" },
+    { n: 13, t: "よぞらダイアリー",      c: "tool", d: "2026.06.07" },
+    { n: 14, t: "黄昏珈琲焙煎所",        c: "lp",   d: "2026.06.10" },
+    { n: 15, t: "ことばシューター",      c: "game", d: "2026.06.11" },
+    { n: 16, t: "今日の七十二候",        c: "tool", d: "2026.06.27" },
+    { n: 17, t: "見えるデータベース",    c: "tool", d: "2026.06.28" },
+    { n: 18, t: "見えるサーバー",        c: "tool", d: "2026.06.29" },
+    { n: 19, t: "見えるAPI",             c: "tool", d: "2026.07.02" },
+    { n: 20, t: "見えるHTTP",            c: "tool", d: "2026.07.04" },
+    { n: 21, t: "配色をツクル",          c: "tool", d: "2026.07.05" },
+    { n: 22, t: "文字を、数える。",      c: "tool", d: "2026.07.06" },
+    { n: 23, t: "一枚絵ガチャ",          c: "game", d: "2026.07.07" },
+    { n: 24, t: "たてかえ精算メモ",      c: "tool", d: "2026.07.08" },
+    { n: 25, t: "今月、あといくら？",    c: "tool", d: "2026.07.11" },
+    { n: 26, t: "セール価格電卓",        c: "tool", d: "2026.07.12" },
+    { n: 27, t: "眠りの逆算",            c: "tool", d: "2026.07.13" },
+    { n: 28, t: "記念日カウンター",      c: "tool", d: "2026.07.14" },
+    { n: 29, t: "これ決めて！ルーレット", c: "tool", d: "2026.07.16" },
+    { n: 30, t: "30 DAYS 振り返り",      c: "lp",   d: "2026.07.16", now: true },
+  ];
+  const CAT = { tool: { c: "var(--tool)", jp: "ツール" }, game: { c: "var(--game)", jp: "ゲーム" }, lp: { c: "var(--lp)", jp: "LP" } };
+  const pad = (n) => String(n).padStart(2, "0");
+
+  function render(filter) {
+    const grid = document.getElementById("grid");
+    grid.innerHTML = "";
+    WORKS.filter((w) => filter === "all" || w.c === filter).forEach((w) => {
+      const meta = CAT[w.c];
+      const a = document.createElement("a");
+      a.className = "g-card" + (w.now ? " now" : "");
+      a.href = "day" + w.n + ".html";
+      a.style.setProperty("--c", meta.c);
+      a.innerHTML =
+        '<div class="g-top"><span class="g-day">Day <b>' + pad(w.n) + '</b></span>' +
+        '<span class="g-tag">' + meta.jp + '</span></div>' +
+        '<div class="g-title">' + w.t + '</div>' +
+        (w.now ? '<div class="g-here">◍ 今ここ（この記念ページ）</div>' : '<div class="g-date">' + w.d + '</div>');
+      grid.appendChild(a);
+    });
+  }
+
+  document.querySelectorAll("#filters .filter").forEach((el) => {
+    el.addEventListener("click", () => {
+      document.querySelectorAll("#filters .filter").forEach((x) => x.classList.remove("active"));
+      el.classList.add("active");
+      render(el.dataset.f);
+    });
+  });
+
+  render("all");
+</script>
+</body>
+</html>
